@@ -2,6 +2,7 @@
 
 /*
     Arquivo JS que é entregue junto com o HTML da config da actividade
+    Novo comentario
 */
 
 const validateForm = function(cb) {
