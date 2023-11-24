@@ -108,8 +108,8 @@ function onGetEndpoints(endpoints) {
  */
  function onGetTriggerEventDefinition(data){     
     console.log('TriggerDefinition', data);
-    let { dataExtensionId } = data;
-    updateDEFields(dataExtensionId,'DEFieldsById','DataExtensionFields');
+    // let { dataExtensionId } = data;
+    // updateDEFields(dataExtensionId,'DEFieldsById','DataExtensionFields');
  }
 
 /**
