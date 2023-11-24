@@ -15,6 +15,10 @@ exports.config = (req, res) => {
   res.json(config);
 };
 
+/* Exportação do ui, utilizado na rota '/' (app.js)
+ * Aqui é renderizado a view index passando alguns atributos, para que a view engine 
+ * neste caso pug, crie o HTML
+ */
 /**
  * Render UI
  * @param req

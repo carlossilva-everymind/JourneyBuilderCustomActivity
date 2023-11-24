@@ -1,5 +1,9 @@
 'use strict';
 
+/*
+    Arquivo JS que é entregue junto com o HTML da config da actividade
+*/
+
 const validateForm = function(cb) {
     $form = $('.js-settings-form');
 
@@ -17,6 +21,7 @@ let payload = {};
 let $form;
 $(window).ready(onRender);
 
+// Configurando os listeners de evento do SFMC
 connection.on('initActivity', initialize);
 connection.on('requestedTokens', onGetTokens);
 connection.on('requestedEndpoints', onGetEndpoints);
@@ -32,6 +37,7 @@ const buttonSettings = {
 };
 
 function onRender() {
+    // Evnia enventos para o SFMC
     connection.trigger('ready');
     connection.trigger('requestTokens');
     connection.trigger('requestEndpoints');

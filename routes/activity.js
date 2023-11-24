@@ -3,6 +3,10 @@ const JWT = require('../utils/jwtDecoder');
 const SFClient = require('../utils/sfmc-client');
 const logger = require('../utils/logger');
 
+/*
+  Arquivo de configuração das rotas do backend da atividade customizada
+*/
+
 /**
  * The Journey Builder calls this method for each contact processed by the journey.
  * @param req
