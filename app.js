@@ -14,7 +14,7 @@ app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
-        'default-src': ["'self'", 'https://mc336wmst6qwdrrw6bfzsq65tzd0.pub.sfmc-content.com'],
+        'default-src': ["'self'"],
         'frame-ancestors': ["'self'", `https://mc.${process.env.STACK}.exacttarget.com`, `https://jbinteractions.${process.env.STACK}.marketingcloudapps.com`],
       },
     },
@@ -42,10 +42,7 @@ app.use('/config.json', routes.config);
 app.use('/journey/execute/', activityRouter.execute);
 app.use('/journey/save/', activityRouter.save);
 app.use('/journey/publish/', activityRouter.publish);
-app.use('/journey/unpublish/', activityRouter.unpublish);
 app.use('/journey/validate/', activityRouter.validate);
-app.use('/journey/stop/', activityRouter.stop);
-app.use('/journey/TestSave/', activityRouter.testsave);
 
 // serve UI
 app.use('/', routes.ui);
