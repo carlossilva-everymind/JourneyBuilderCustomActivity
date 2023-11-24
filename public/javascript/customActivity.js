@@ -22,6 +22,7 @@ connection.on('requestedTokens', onGetTokens);
 connection.on('requestedEndpoints', onGetEndpoints);
 
 connection.on('clickedNext', save);
+connection.on('requestedTriggerEventDefinition', onGetTriggerEventDefinition);
 
 const buttonSettings = {
     button: 'next',
@@ -34,6 +35,7 @@ function onRender() {
     connection.trigger('ready');
     connection.trigger('requestTokens');
     connection.trigger('requestEndpoints');
+    connection.trigger('requestTriggerEventDefinition');
 
     // validation
     validateForm(function($form) {
@@ -49,6 +51,7 @@ function onRender() {
  * @param data
  */
 function initialize(data) {
+    console.log('Initializing Data', data);
     if (data) {
         payload = data;
     }
@@ -87,6 +90,7 @@ function initialize(data) {
  */
 function onGetTokens(tokens) {
     authTokens = tokens;
+    console.log(authTokens);
 }
 
 /**
@@ -95,8 +99,18 @@ function onGetTokens(tokens) {
  * @param {*} endpoints
  */
 function onGetEndpoints(endpoints) {
-    console.log(endpoints);
+    console.log('Endpoint Requested',endpoints);
 }
+
+/**
+ * 
+ *  
+ */
+ function onGetTriggerEventDefinition(data){     
+    console.log('TriggerDefinition', data);
+    let { dataExtensionId } = data;
+    updateDEFields(dataExtensionId,'DEFieldsById','DataExtensionFields');
+ }
 
 /**
  * Save settings
@@ -130,7 +144,28 @@ function save() {
                 }
             })
         });
-
+        console.log('Updating Activity data:',JSON.stringify(payload));
         connection.trigger('updateActivity', payload);
     }
 }
+
+async function updateDEFields(dataExtensionId,service,elementID){
+    let postBody = `{
+            "service":"${service}",
+            "data":{
+                "value":"${dataExtensionId}"
+            }
+        }`;
+        fetch('https://mc336wmst6qwdrrw6bfzsq65tzd0.pub.sfmc-content.com/inlhdcmj2kh',
+            {method:'POST',body:postBody})
+        .then(response =>  response.json())
+        .then(response => {
+            let selectElement = document.getElementById(elementID);
+            let optionsElements= '';
+            selectElement.innerHTML = '';
+            for(const field of response.data) {
+                optionsElements += `<option value="${field}">${field}</option>`;
+            }
+            selectElement.innerHTML = optionsElements;
+        })
+};

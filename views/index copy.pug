@@ -1,6 +1,8 @@
-extends layout
+extends layout copy
 
 block content
+  -var dropdownOptions= [{name: 'Journey Entry',value: 'journeyEntry',},{name: 'Journey Exit',value: 'journeyExit',},]
+
   article.slds-card
     .slds-card__header.slds-grid
       header.slds-media.slds-media_center.slds-has-flexi-truncate

@@ -1,3 +1,4 @@
+const { response } = require('express');
 const FuelRest = require('fuel-rest');
 
 const options = {
@@ -32,7 +33,45 @@ const saveData = async (externalKey, data) => client.post({
   body: data,
 });
 
+/**
+ * Get data of journey
+ * @param interactionKey
+ * @returns {?Promise}
+ */
+const getJourneyInfo = async (interactionKey) => {
+  const bodyResponse = await client.get({
+    uri: `/interaction/v1/interactions/key:${interactionKey}/`,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    json: true,
+  })
+    .then((resp) => resp.body);
+  return bodyResponse;
+};
+
+/**
+ * Save data in DE
+ * @param externalKey
+ * @param data
+ * @returns {?Promise}
+ */
+const updateJourney = async (interactionKey, data) => {
+  const apiResponse = client.put({
+    uri: `/interaction/v1/interactions/key:${interactionKey}/`,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    json: true,
+    body: data,
+  })
+    .then((resp) => resp);
+  return apiResponse;
+};
+
 module.exports = {
   client,
   saveData,
+  getJourneyInfo,
+  updateJourney,
 };

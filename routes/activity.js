@@ -45,9 +45,9 @@ exports.execute = async (req, res) => {
  * @param res
  * @returns {Promise<void>}
  */
-exports.save = async (req, res) => {
+exports.save = (req, res) => {
   res.status(200).send({
-    status: 'ok',
+    success: true,
   });
 };
 
@@ -63,13 +63,77 @@ exports.publish = (req, res) => {
 };
 
 /**
+ *  Endpoint that receives a notification when a user publishes the journey.
+ * @param req
+ * @param res
+ */
+exports.unpublish = (req, res) => {
+  res.status(200).send({
+    status: 'ok',
+  });
+};
+
+/**
  * Endpoint that receives a notification when a user performs
  * some validation as part of the publishing process.
  * @param req
  * @param res
  */
-exports.validate = (req, res) => {
+exports.validate = async (req, res) => {
+  // decode data
+  const data = JWT(req.body);
+  console.log('Validating', data);
+  const { activityObjectID } = data;
+
+  try {
+    const journeyInfo = await SFClient.getJourneyInfo(data.interactionKey);
+    const regex = /%%(.*)%%/g;
+    const { metaData: { eventDefinitionKey } } = journeyInfo.triggers[0];
+    /* console.log('Atividades da jornada: ', journeyInfo.activities);
+    console.log('EventDefinitionKey', eventDefinitionKey);
+    console.log('activityObjectID', activityObjectID); */
+    for (let i = 0; i < journeyInfo.activities.length; i += 1) {
+      if (journeyInfo.activities[i].id === activityObjectID) {
+        const [inArguments] = journeyInfo.activities[i].arguments.execute.inArguments;
+        console.log('inArguments', inArguments);
+        Object.keys(inArguments).forEach((key) => {
+          inArguments[key] = inArguments[key].replace(regex, `Event.${eventDefinitionKey}.$1`);
+        });
+        console.log(`inArguments da atividade ${activityObjectID}:`, inArguments);
+        journeyInfo.activities[i].arguments.execute.inArguments = inArguments;
+      }
+    }
+    //console.log('journeyInfo', journeyInfo);
+    //const updateJourneyResponse = await SFClient.updateJourney(data.interactionKey, journeyInfo);
+    //console.log('Resposta da API do mkt cld:', JSON.stringify(updateJourneyResponse.body));
+  } catch (error) {
+    logger.error(error);
+  }
+
   res.status(200).send({
-    status: 'ok',
+    success: true,
+  });
+};
+
+/**
+ * Endpoint that receives a notification when a user performs
+ * some validation as part of the publishing process.
+ * @param req
+ * @param res
+ */
+exports.stop = (req, res) => {
+  res.status(200).send({
+    success: true,
+  });
+};
+/**
+ * Endpoint that receives a notification when a user performs
+ * some validation as part of the publishing process.
+ * @param req
+ * @param res
+ */
+exports.testsave = (req, res) => {
+  res.status(200).send({
+    success: true,
   });
 };
