@@ -85,41 +85,6 @@ exports.unpublish = (req, res) => {
  * @param res
  */
 exports.validate = async (req, res) => {
-  console.log('Validate - Dados recebidos: ', req.body);
-  // decode data
-  const data = JWT(req.body);
-  console.log('Validate - Dados decodificados: ', data);
-  const { activityObjectID } = data;
-
-  try {
-    const journeyInfo = await SFClient.getJourneyInfo(data.interactionKey);
-    console.log('Validade - journeyInfo: ', JSON.stringify(journeyInfo));
-    console.log(journeyInfo);
-    const regex = /%%(.*)%%/g;
-    const { metaData: { eventDefinitionKey } } = journeyInfo.triggers[0];
-    /* console.log('Atividades da jornada: ', journeyInfo.activities);
-    console.log('EventDefinitionKey', eventDefinitionKey);
-    console.log('activityObjectID', activityObjectID); */
-    for (let i = 0; i < journeyInfo.activities.length; i += 1) {
-      if (journeyInfo.activities[i].id === activityObjectID) {
-        const [inArguments] = journeyInfo.activities[i].arguments.execute.inArguments;
-        console.log('inArguments', inArguments);
-        Object.keys(inArguments).forEach((key) => {
-          inArguments[key] = inArguments[key].replace(regex, `Event.${eventDefinitionKey}.$1`);
-        });
-        console.log(`inArguments da atividade ${activityObjectID}:`, inArguments);
-        journeyInfo.activities[i].arguments.execute.inArguments = inArguments;
-      }
-    }
-    //console.log('journeyInfo', journeyInfo);
-    //const updateJourneyResponse = await SFClient.updateJourney(data.interactionKey, journeyInfo);
-    //console.log('Resposta da API do mkt cld:', JSON.stringify(updateJourneyResponse.body));
-  } catch (error) {
-    console.log(error);
-    
-    logger.error(JSON.stringify(error));
-  }
-
   res.status(200).send({
     success: true,
   });
