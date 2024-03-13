@@ -4,11 +4,11 @@
     Arquivo JS que é entregue junto com o HTML da config da atividade
 */
 
-const validateForm = function(cb) {
+const validateForm = function (cb) {
     $form = $('.js-settings-form');
 
     $form.validate({
-        submitHandler: function(form) { },
+        submitHandler: function (form) { },
         errorPlacement: function () { },
     });
 
@@ -25,10 +25,10 @@ $(window).ready(onRender);
 connection.on('initActivity', initialize);
 connection.on('requestedTokens', onGetTokens);
 connection.on('requestedEndpoints', onGetEndpoints);
-
-connection.on('clickedNext', save);
 connection.on('requestedInteraction', onGetInteraction);
 connection.on('requestedTriggerEventDefinition', onGetTriggerEventDefinition);
+
+connection.on('clickedNext', save);
 
 const buttonSettings = {
     button: 'next',
@@ -46,7 +46,7 @@ function onRender() {
     connection.trigger('requestTriggerEventDefinition');
 
     // validation
-    validateForm(function($form) {
+    validateForm(function ($form) {
         $form.on('change click keyup input paste', 'input, textarea', function () {
             buttonSettings.enabled = $form.valid();
             connection.trigger('updateButton', buttonSettings);
@@ -77,7 +77,7 @@ function initialize(data) {
     $.each(inArguments, function (index, inArgument) {
         $.each(inArgument, function (key, value) {
             const $el = $('#' + key);
-            if($el.attr('type') === 'checkbox') {
+            if ($el.attr('type') === 'checkbox') {
                 $el.prop('checked', value === 'true');
             } else {
                 $el.val(value);
@@ -85,7 +85,7 @@ function initialize(data) {
         });
     });
 
-    validateForm(function($form) {
+    validateForm(function ($form) {
         buttonSettings.enabled = $form.valid();
         connection.trigger('updateButton', buttonSettings);
     });
@@ -98,7 +98,7 @@ function initialize(data) {
  */
 function onGetTokens(tokens) {
     authTokens = tokens;
-    console.log(authTokens);
+    console.log('Tokens Requested', authTokens);
 }
 
 /**
@@ -107,9 +107,8 @@ function onGetTokens(tokens) {
  * @param {*} endpoints
  */
 function onGetEndpoints(endpoints) {
-    console.log('Endpoint Requested',endpoints);
+    console.log('Endpoint Requested', endpoints);
 }
-
 
 /**
  *
@@ -117,24 +116,24 @@ function onGetEndpoints(endpoints) {
  * @param {*} interaction
  */
 function onGetInteraction(interaction) {
-    console.log('Interaction Requested',interaction);
+    console.log('Interaction Requested', interaction);
 }
 
 /**
  * 
  *  
  */
- function onGetTriggerEventDefinition(data){     
+function onGetTriggerEventDefinition(data) {
     console.log('TriggerDefinition', data);
     // let { dataExtensionId } = data;
     // updateDEFields(dataExtensionId,'DEFieldsById','DataExtensionFields');
- }
+}
 
 /**
  * Save settings
  */
 function save() {
-    if($form.valid()) {
+    if ($form.valid()) {
         payload['metaData'].isConfigured = true;
 
         payload['arguments'].execute.inArguments = [
@@ -150,9 +149,9 @@ function save() {
                 value: $(this).val()
             };
 
-            $.each(payload['arguments'].execute.inArguments, function(index, value) {
-                if($el.attr('type') === 'checkbox') {
-                    if($el.is(":checked")) {
+            $.each(payload['arguments'].execute.inArguments, function (index, value) {
+                if ($el.attr('type') === 'checkbox') {
+                    if ($el.is(":checked")) {
                         value[setting.id] = setting.value;
                     } else {
                         value[setting.id] = 'false';
@@ -162,26 +161,26 @@ function save() {
                 }
             })
         });
-        console.log('Updating Activity data:',JSON.stringify(payload));
+        console.log('Updating Activity data:', JSON.stringify(payload));
         connection.trigger('updateActivity', payload);
     }
 }
 
-async function updateDEFields(dataExtensionId,service,elementID){
+async function updateDEFields(dataExtensionId, service, elementID) {
     let postBody = `{
             "service":"${service}",
             "data":{
                 "value":"${dataExtensionId}"
             }
         }`;
-        fetch('https://mc336wmst6qwdrrw6bfzsq65tzd0.pub.sfmc-content.com/inlhdcmj2kh',
-            {method:'POST',body:postBody})
-        .then(response =>  response.json())
+    fetch('https://mc336wmst6qwdrrw6bfzsq65tzd0.pub.sfmc-content.com/inlhdcmj2kh',
+        { method: 'POST', body: postBody })
+        .then(response => response.json())
         .then(response => {
             let selectElement = document.getElementById(elementID);
-            let optionsElements= '';
+            let optionsElements = '';
             selectElement.innerHTML = '';
-            for(const field of response.data) {
+            for (const field of response.data) {
                 optionsElements += `<option value="${field}">${field}</option>`;
             }
             selectElement.innerHTML = optionsElements;
