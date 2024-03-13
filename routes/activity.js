@@ -111,6 +111,7 @@ exports.validate = async (req, res) => {
     //const updateJourneyResponse = await SFClient.updateJourney(data.interactionKey, journeyInfo);
     //console.log('Resposta da API do mkt cld:', JSON.stringify(updateJourneyResponse.body));
   } catch (error) {
+    console.log(error);
     
     logger.error(JSON.stringify(error));
   }
