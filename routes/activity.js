@@ -93,8 +93,9 @@ exports.validate = async (req, res) => {
 
   try {
     const journeyInfo = await SFClient.getJourneyInfo(data.interactionKey);
-    console.log('Validade - journeyInfo: ', journeyInfo);
-    const regex = /%%(.*)%%/g;
+    console.log('Validade - journeyInfo: ', JSON.stringify(journeyInfo));
+    console.log(journeyInfo);
+    const regex = /%%(.*)%%/g;q
     const { metaData: { eventDefinitionKey } } = journeyInfo.triggers[0];
     /* console.log('Atividades da jornada: ', journeyInfo.activities);
     console.log('EventDefinitionKey', eventDefinitionKey);
