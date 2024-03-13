@@ -14,10 +14,10 @@ const logger = require('../utils/logger');
  * @returns {Promise<void>}
  */
 exports.execute = async (req, res) => {
-  console.log('Dados recebidos: ', req.body);
+  console.log('Execute - Dados recebidos: ', req.body);
   // decode data
   const data = JWT(req.body);
-  console.log('Dados decodificados: ', req.body)
+  console.log('Execute - Dados decodificados: ', data)
   logger.info(data);
 
   try {
@@ -85,9 +85,10 @@ exports.unpublish = (req, res) => {
  * @param res
  */
 exports.validate = async (req, res) => {
+  console.log('Validate - Dados recebidos: ', req.body);
   // decode data
   const data = JWT(req.body);
-  console.log('Validating', data);
+  console.log('Validate - Dados decodificados: ', data);
   const { activityObjectID } = data;
 
   try {
