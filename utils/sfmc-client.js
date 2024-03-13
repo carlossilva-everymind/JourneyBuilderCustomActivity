@@ -47,9 +47,9 @@ const getJourneyInfo = async (interactionKey) => {
     json: true,
   })
     .then((resp) => {
+      console.log('resp');
+      console.log(resp);
       resp.body
-      console.log('bodyResponse');
-      console.log(resp.body);
     });
   return bodyResponse;
 };
