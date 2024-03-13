@@ -1,8 +1,7 @@
 'use strict';
 
 /*
-    Arquivo JS que é entregue junto com o HTML da config da actividade
-    Novo comentario
+    Arquivo JS que é entregue junto com o HTML da config da atividade
 */
 
 const validateForm = function(cb) {
@@ -28,6 +27,7 @@ connection.on('requestedTokens', onGetTokens);
 connection.on('requestedEndpoints', onGetEndpoints);
 
 connection.on('clickedNext', save);
+connection.on('requestedInteraction', onGetInteraction);
 connection.on('requestedTriggerEventDefinition', onGetTriggerEventDefinition);
 
 const buttonSettings = {
@@ -38,10 +38,11 @@ const buttonSettings = {
 };
 
 function onRender() {
-    // Evnia enventos para o SFMC
+    // Envia enventos para o SFMC
     connection.trigger('ready');
     connection.trigger('requestTokens');
     connection.trigger('requestEndpoints');
+    connection.trigger('requestInteraction');
     connection.trigger('requestTriggerEventDefinition');
 
     // validation
@@ -107,6 +108,16 @@ function onGetTokens(tokens) {
  */
 function onGetEndpoints(endpoints) {
     console.log('Endpoint Requested',endpoints);
+}
+
+
+/**
+ *
+ *
+ * @param {*} interaction
+ */
+function onGetInteraction(interaction) {
+    console.log('Interaction Requested',interaction);
 }
 
 /**
