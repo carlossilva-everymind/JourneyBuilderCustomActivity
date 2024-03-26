@@ -137,7 +137,7 @@ function onGetTriggerEventDefinition(data) {
 
 function onGetrequestedSchema(data) {
     console.log('onRequestedSchema:', data);
-    let selectElement = document.getElementById('DataExtensionFields');
+    let selectElement = document.getElementById('DataExtensionField');
     let optionsElements = '';
     selectElement.innerHTML = '';
     data.schema.forEach(element => {
