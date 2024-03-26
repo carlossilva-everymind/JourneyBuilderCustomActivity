@@ -137,7 +137,7 @@ function onGetTriggerEventDefinition(data) {
     console.log('dataExtensionId', dataExtensionId);
 
 
-    fetch(`${endpoint}/internal/v1/customobjects/${dataExtensionId}/fields`,
+    fetch(`${endpoint}internal/v1/customobjects/${dataExtensionId}/fields`,
         {
             method: 'GET',
             headers: {

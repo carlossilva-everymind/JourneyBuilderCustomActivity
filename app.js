@@ -17,7 +17,7 @@ app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
-        'default-src': ["'self'", 'https://mc336wmst6qwdrrw6bfzsq65tzd0.pub.sfmc-content.com'],
+        'default-src': ["'self'", 'www-mc-s11.exacttargetapis.com'],
         'frame-ancestors': ["'self'", `https://mc.${process.env.STACK}.exacttarget.com`, `https://jbinteractions.${process.env.STACK}.marketingcloudapps.com`],
       },
     },
