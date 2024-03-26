@@ -142,7 +142,8 @@ function onGetTriggerEventDefinition(data) {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
-            }
+            },
+            mode: 'no-cors'
         })
         .then(response => response.json())
         .then(response => {
