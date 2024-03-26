@@ -138,7 +138,7 @@ function onGetTriggerEventDefinition(data) {
 function onGetrequestedSchema(data) {
     console.log('onRequestedSchema:', data);
     data.schema.forEach(element => {
-        console.log(element);
+        console.log(element.name, ':', element.key);
     });
 }
 
