@@ -141,7 +141,7 @@ function onGetrequestedSchema(data) {
     let optionsElements = '';
     selectElement.innerHTML = '';
     data.schema.forEach(element => {
-        optionsElements += `<option value="${element.key}">${element.name}</option>`;
+        optionsElements += `<option value="{{${element.key}}}">${element.name}</option>`;
         console.log(element.name, ':', element.key);
     });
     selectElement.innerHTML = optionsElements;
