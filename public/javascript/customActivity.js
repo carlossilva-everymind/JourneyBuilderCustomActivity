@@ -27,6 +27,7 @@ connection.on('requestedTokens', onGetTokens);
 connection.on('requestedEndpoints', onGetEndpoints);
 connection.on('requestedInteraction', onGetInteraction);
 connection.on('requestedTriggerEventDefinition', onGetTriggerEventDefinition);
+connection.on('requestedSchema', onGetrequestedSchema);
 
 connection.on('clickedNext', save);
 
@@ -153,6 +154,11 @@ function onGetTriggerEventDefinition(data) {
 
     // let { dataExtensionId } = data;
     // updateDEFields(dataExtensionId,'DEFieldsById','DataExtensionFields');
+}
+
+
+function onGetrequestedSchema(data) {
+    console.log('onRequestedSchema:', data);
 }
 
 /**
