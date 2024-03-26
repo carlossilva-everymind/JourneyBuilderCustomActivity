@@ -137,13 +137,13 @@ function onGetTriggerEventDefinition(data) {
     console.log('dataExtensionId', dataExtensionId);
 
 
-    fetch(`${endpoint}internal/v1/customobjects/${dataExtensionId}/fields`,
+    fetch(`${endpoint}internal/v1/customobjects/${dataExtensionId}/fields/`,
         {
             method: 'GET',
+            mode: 'no-cors',
             headers: {
                 'Authorization': `Bearer ${token}`
-            },
-            mode: 'no-cors'
+            }
         })
         .then(response => response.json())
         .then(response => {
