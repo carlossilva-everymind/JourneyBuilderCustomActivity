@@ -46,6 +46,7 @@ function onRender() {
     // connection.trigger('requestEndpoints');
     connection.trigger('requestInteraction');
     // connection.trigger('requestTriggerEventDefinition');
+    connection.trigger('requestSchema');
 
     // validation
     validateForm(function ($form) {
