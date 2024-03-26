@@ -137,9 +137,14 @@ function onGetTriggerEventDefinition(data) {
 
 function onGetrequestedSchema(data) {
     console.log('onRequestedSchema:', data);
+    let selectElement = document.getElementById(elementID);
+    let optionsElements = '';
+    selectElement.innerHTML = '';
     data.schema.forEach(element => {
+        optionsElements += `<option value="${element.key}">${element.name}</option>`;
         console.log(element.name, ':', element.key);
     });
+    selectElement.innerHTML = optionsElements;
 }
 
 /**
