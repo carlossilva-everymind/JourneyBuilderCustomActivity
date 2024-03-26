@@ -136,6 +136,19 @@ function onGetTriggerEventDefinition(data) {
     dataExtensionId = data.dataExtensionId;
     console.log('dataExtensionId', dataExtensionId);
 
+
+    fetch(`${endpoint}/internal/v1/customobjects/${dataExtensionId}/fields`,
+        {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(response => response.json())
+        .then(response => {
+            console.log(response)
+        })
+
     // let { dataExtensionId } = data;
     // updateDEFields(dataExtensionId,'DEFieldsById','DataExtensionFields');
 }
