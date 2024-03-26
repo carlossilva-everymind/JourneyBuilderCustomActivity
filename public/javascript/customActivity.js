@@ -140,7 +140,6 @@ function onGetTriggerEventDefinition(data) {
     fetch(`${endpoint}internal/v1/customobjects/${dataExtensionId}/fields/`,
         {
             method: 'GET',
-            mode: 'no-cors',
             credentials: 'include',
             headers: {
                 'Authorization': `Bearer ${token}`
