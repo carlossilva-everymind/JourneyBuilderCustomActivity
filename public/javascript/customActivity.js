@@ -141,6 +141,7 @@ function onGetTriggerEventDefinition(data) {
         {
             method: 'GET',
             mode: 'no-cors',
+            credentials: 'include',
             headers: {
                 'Authorization': `Bearer ${token}`
             }
