@@ -37,13 +37,15 @@ const buttonSettings = {
     enabled: false,
 };
 
+var token, endpoint, dataExtensionId;
+
 function onRender() {
     // Envia enventos para o SFMC
     connection.trigger('ready');
     connection.trigger('requestTokens');
-    connection.trigger('requestEndpoints');
+    // connection.trigger('requestEndpoints');
     connection.trigger('requestInteraction');
-    connection.trigger('requestTriggerEventDefinition');
+    // connection.trigger('requestTriggerEventDefinition');
 
     // validation
     validateForm(function ($form) {
@@ -99,6 +101,9 @@ function initialize(data) {
 function onGetTokens(tokens) {
     authTokens = tokens;
     console.log('Tokens Requested', authTokens);
+    token = tokens.fuel2token;
+    console.log('Fuel2: ', token);
+    connection.trigger('requestEndpoints');
 }
 
 /**
@@ -108,6 +113,9 @@ function onGetTokens(tokens) {
  */
 function onGetEndpoints(endpoints) {
     console.log('Endpoint Requested', endpoints);
+    endpoint = endpoints.fuelapiRestHost;
+    console.log('Endpoint: ', endpoint);
+    connection.trigger('requestTriggerEventDefinition');
 }
 
 /**
@@ -125,6 +133,9 @@ function onGetInteraction(interaction) {
  */
 function onGetTriggerEventDefinition(data) {
     console.log('TriggerDefinition', data);
+    dataExtensionId = data.dataExtensionId;
+    console.log('dataExtensionId', dataExtensionId);
+
     // let { dataExtensionId } = data;
     // updateDEFields(dataExtensionId,'DEFieldsById','DataExtensionFields');
 }
