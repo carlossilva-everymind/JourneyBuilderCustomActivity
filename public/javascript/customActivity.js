@@ -147,10 +147,12 @@ function onGetrequestedSchema(data) {
     confirmacaoText.innerHTML = '';
     confirmacaoBoolean.innerHTML = '';
     data.schema.forEach(element => {
-        idAgendamentoOptions += `<option value="{{${element.key}}}">${element.name}</option>`;
-        confirmacaoTextOptions += `<option value="{{${element.key}}}">${element.name}</option>`;
-        confirmacaoBooleanOptions += `<option value="{{${element.key}}}">${element.name}</option>`;
         console.log(element.name, ':', element.key);
+        if (element.name) {
+            idAgendamentoOptions += `<option value="{{${element.key}}}">${element.name}</option>`;
+            confirmacaoTextOptions += `<option value="{{${element.key}}}">${element.name}</option>`;
+            confirmacaoBooleanOptions += `<option value="{{${element.key}}}">${element.name}</option>`;
+        }
     });
     idAgendamento.innerHTML = idAgendamentoOptions;
     confirmacaoText.innerHTML = confirmacaoTextOptions;
