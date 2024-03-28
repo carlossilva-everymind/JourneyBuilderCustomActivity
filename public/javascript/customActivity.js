@@ -137,14 +137,24 @@ function onGetTriggerEventDefinition(data) {
 
 function onGetrequestedSchema(data) {
     console.log('onRequestedSchema:', data);
-    let selectElement = document.getElementById('DataExtensionField');
-    let optionsElements = '';
-    selectElement.innerHTML = '';
+    let idAgendamento = document.getElementById('idAgendamento');
+    let confirmacaoText = document.getElementById('confirmacaoText');
+    let confirmacaoBoolean = document.getElementById('confirmacaoBoolean');
+    let idAgendamentoOptions = '';
+    let confirmacaoTextOptions = '';
+    let confirmacaoBooleanOptions = '';
+    idAgendamento.innerHTML = '';
+    confirmacaoText.innerHTML = '';
+    confirmacaoBoolean.innerHTML = '';
     data.schema.forEach(element => {
-        optionsElements += `<option value="{{${element.key}}}">${element.name}</option>`;
+        idAgendamentoOptions += `<option value="{{${element.key}}}">${element.name}</option>`;
+        confirmacaoTextOptions += `<option value="{{${element.key}}}">${element.name}</option>`;
+        confirmacaoBooleanOptions += `<option value="{{${element.key}}}">${element.name}</option>`;
         console.log(element.name, ':', element.key);
     });
-    selectElement.innerHTML = optionsElements;
+    idAgendamento.innerHTML = idAgendamentoOptions;
+    confirmacaoText.innerHTML = confirmacaoTextOptions;
+    confirmacaoBoolean.innerHTML = confirmacaoBooleanOptions;
 }
 
 /**

@@ -16,17 +16,22 @@ block content
     .slds-card__body.slds-card__body_inner
       form.js-settings-form
         .slds-form-element
-          label.slds-form-element__label(for="idAgendamento") Campo Id Agendamento
+          label.slds-form-element__label(for="DropdownOptions") Type
           .slds-form-element__control
             .slds-select_container
-              select#idAgendamento.slds-select.js-activity-setting(name='idAgendamento')
-          label.slds-form-element__label(for="confirmacaoText") Campo Confrimação Texto
+              select#DropdownOptions.slds-select.js-activity-setting(name='dropdownOptions')
+                each dropdownOption in dropdownOptions
+                  option(value=dropdownOption.value)= dropdownOption.name
+              
+          label.slds-form-element__label.slds-p-top_medium(for='Text')
+            abbr.slds-required(title='required')
+            | Text *
+          .slds-form-element__control
+            input#Text.slds-input.js-activity-setting(required='', placeholder='', name='text')
+
+          label.slds-form-element__label(for="DataExtensionField") DataExtensionField
           .slds-form-element__control
             .slds-select_container
-              select#confirmacaoText.slds-select.js-activity-setting(name='confirmacaoText')
-          label.slds-form-element__label(for="confirmacaoBoolean") Campo Confrimação Boolean
-          .slds-form-element__control
-            .slds-select_container
-              select#confirmacaoBoolean.slds-select.js-activity-setting(name='confirmacaoBoolean')
+              select#DataExtensionField.slds-select.js-activity-setting(name='DataExtensionField')
 
     footer.slds-card__footer
