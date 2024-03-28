@@ -149,6 +149,7 @@ function onGetrequestedSchema(data) {
         ? payload['arguments'].execute.inArguments
         : {};
 
+    // Pega elementos de input
     let idAgendamento = document.getElementById('idAgendamento');
     let confirmacaoText = document.getElementById('confirmacaoText');
     let confirmacaoBoolean = document.getElementById('confirmacaoBoolean');
@@ -158,36 +159,33 @@ function onGetrequestedSchema(data) {
     idAgendamento.innerHTML = '';
     confirmacaoText.innerHTML = '';
     confirmacaoBoolean.innerHTML = '';
-    console.log('InArguments', inArguments);
+
+    // Pega valores salvos
     let selectedIdAgendamento = inArguments[0]?.idAgendamento;
     if (selectedIdAgendamento) {
         let start = selectedIdAgendamento.indexOf('{{') + 2;
         let end = selectedIdAgendamento.indexOf('}}');
         selectedIdAgendamento = selectedIdAgendamento.substring(start, end);
     }
-
     let selectedConfirmacaoText = inArguments[0]?.confirmacaoText;
     if (selectedConfirmacaoText) {
         let start = selectedConfirmacaoText.indexOf('{{') + 2;
         let end = selectedConfirmacaoText.indexOf('}}');
         selectedConfirmacaoText = selectedConfirmacaoText.substring(start, end);
     }
-
     let selectedConfirmacaoBoolean = inArguments[0]?.confirmacaoBoolean;
     if (selectedConfirmacaoBoolean) {
         let start = selectedConfirmacaoBoolean.indexOf('{{') + 2;
         let end = selectedConfirmacaoBoolean.indexOf('}}');
         selectedConfirmacaoBoolean = selectedConfirmacaoBoolean.substring(start, end);
     }
-    console.log('selectedIdAgendamento', selectedIdAgendamento);
 
+    // Percorre objeto data schema e preenche os dropdowns
     data.schema.forEach(element => {
-        console.log(element.name, ':', element.key);
         if (element.name) {
             let idAgendamentoSelected = element.key == selectedIdAgendamento ? 'selected' : '';
             let confirmacaoTextSelected = element.key == selectedConfirmacaoText ? 'selected' : '';
             let confirmacaoBooleanSelected = element.key == selectedConfirmacaoBoolean ? 'selected' : '';
-            console.log('idAgendamentoSelected', idAgendamentoSelected);
             idAgendamentoOptions += `<option value="{{${element.key}}}" ${idAgendamentoSelected}>${element.name}</option>`;
             confirmacaoTextOptions += `<option value="{{${element.key}}}" ${confirmacaoTextSelected}>${element.name}</option>`;
             confirmacaoBooleanOptions += `<option value="{{${element.key}}}" ${confirmacaoBooleanSelected}>${element.name}</option>`;
