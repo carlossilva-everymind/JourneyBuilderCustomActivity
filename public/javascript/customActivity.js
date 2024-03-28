@@ -137,6 +137,18 @@ function onGetTriggerEventDefinition(data) {
 
 function onGetrequestedSchema(data) {
     console.log('onRequestedSchema:', data);
+
+    const hasInArguments = Boolean(
+        payload['arguments'] &&
+        payload['arguments'].execute &&
+        payload['arguments'].execute.inArguments &&
+        payload['arguments'].execute.inArguments.length > 0
+    );
+
+    const inArguments = hasInArguments
+        ? payload['arguments'].execute.inArguments
+        : {};
+
     let idAgendamento = document.getElementById('idAgendamento');
     let confirmacaoText = document.getElementById('confirmacaoText');
     let confirmacaoBoolean = document.getElementById('confirmacaoBoolean');
@@ -146,10 +158,12 @@ function onGetrequestedSchema(data) {
     idAgendamento.innerHTML = '';
     confirmacaoText.innerHTML = '';
     confirmacaoBoolean.innerHTML = '';
+    let selectedIdAgendamento = inArguments.idAgendamento;
+
     data.schema.forEach(element => {
         console.log(element.name, ':', element.key);
         if (element.name) {
-            idAgendamentoOptions += `<option value="{{${element.key}}}">${element.name}</option>`;
+            idAgendamentoOptions += `<option value="{{${element.key}}}" ${element.key == selectedIdAgendamento ? 'selected' : ''}>${element.name}</option>`;
             confirmacaoTextOptions += `<option value="{{${element.key}}}">${element.name}</option>`;
             confirmacaoBooleanOptions += `<option value="{{${element.key}}}">${element.name}</option>`;
         }
