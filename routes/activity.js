@@ -2,7 +2,8 @@ const { v1: Uuidv1 } = require('uuid');
 const JWT = require('../utils/jwtDecoder');
 const SFClient = require('../utils/sfmc-client');
 const logger = require('../utils/logger');
-const https = require('https');
+// const https = require('https');
+const axios = require('axios');
 
 /*
   Arquivo de configuração das rotas do backend da atividade customizada
@@ -30,31 +31,14 @@ exports.execute = async (req, res) => {
       "grant_type": "CLIENT_CREDENTIALS"
     });
 
-    const options = {
-      hostname: 'https://oauth-app-hml.br-s1.cloudhub.io',
-      path: '/token',
-      method: 'POST'
-    };
-
-    const req = https.request(options, res => {
-      let data = '';
-
-      res.on('data', chunk => {
-        data += chunk;
+    axios.post('https://oauth-app-hml.br-s1.cloudhub.io/token', postData)
+      .then(response => {
+        console.log(response.data);
+      }).catch(error => {
+        console.error(error);
       });
 
-      res.on('end', () => {
-        console.log('data', data);
-      });
-    });
 
-    req.on('error', error => {
-      console.error('error', error);
-    });
-
-    console.log('postdata', postData);
-    req.write(postData);
-    req.end();
 
     await SFClient.saveData(process.env.DATA_EXTENSION_EXTERNAL_KEY, [
       {
