@@ -39,16 +39,18 @@ exports.execute = async (req, res) => {
       "grant_type": "CLIENT_CREDENTIALS"
     }
 
-    axios.post('https://oauth-app-hml.br-s1.cloudhub.io/token', null, {
+    let authResponse = await axios.post('https://oauth-app-hml.br-s1.cloudhub.io/token', null, {
       headers
     })
       .then(response => {
         console.log(response.data);
         authToken = response.data.access_token;
+        return response.data;
       }).catch(error => {
         console.error(error);
       });
 
+    console.log('authResponse', authResponse);
     console.log('authToken', authToken);
 
 
