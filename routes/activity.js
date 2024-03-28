@@ -31,6 +31,8 @@ exports.execute = async (req, res) => {
       "grant_type": "CLIENT_CREDENTIALS"
     });
 
+    let authToken;
+
     const headers = {
       "client_id": "adbb826a4a4a4f1f955d91125f066d65",
       "client_secret": "B2fb771Fee944f8DB3B6D18e284f528d",
@@ -42,9 +44,12 @@ exports.execute = async (req, res) => {
     })
       .then(response => {
         console.log(response.data);
+        authToken = response.data.access_token;
       }).catch(error => {
         console.error(error);
       });
+
+    console.log('authToken', authToken);
 
 
 
