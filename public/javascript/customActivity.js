@@ -158,8 +158,11 @@ function onGetrequestedSchema(data) {
     idAgendamento.innerHTML = '';
     confirmacaoText.innerHTML = '';
     confirmacaoBoolean.innerHTML = '';
-    console.log('Inarguments', inArguments);
-    let selectedIdAgendamento = inArguments[0].idAgendamento;
+    console.log('InArguments', inArguments);
+    let selectedIdAgendamento = inArguments[0]?.idAgendamento;
+    let start = selectedIdAgendamento.indexOf('{{') + 2;
+    let end = selectedIdAgendamento.indexOf('}}');
+    selectedIdAgendamento = selectedIdAgendamento.substring(start, end);
     console.log('selectedIdAgendamento', selectedIdAgendamento);
 
     data.schema.forEach(element => {
