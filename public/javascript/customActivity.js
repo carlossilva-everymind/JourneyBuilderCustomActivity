@@ -165,7 +165,9 @@ function onGetrequestedSchema(data) {
     data.schema.forEach(element => {
         console.log(element.name, ':', element.key);
         if (element.name) {
-            idAgendamentoOptions += `<option value="{{${element.key}}}" ${element.key == selectedIdAgendamento ? 'selected' : ''}>${element.name}</option>`;
+            let idAgendamentoSelected = element.key == selectedIdAgendamento ? 'selected' : '';
+            console.log('idAgendamentoSelected', idAgendamentoSelected);
+            idAgendamentoOptions += `<option value="{{${element.key}}}" "${idAgendamentoSelected}">${element.name}</option>`;
             confirmacaoTextOptions += `<option value="{{${element.key}}}">${element.name}</option>`;
             confirmacaoBooleanOptions += `<option value="{{${element.key}}}">${element.name}</option>`;
         }
