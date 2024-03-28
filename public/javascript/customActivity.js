@@ -165,16 +165,32 @@ function onGetrequestedSchema(data) {
         let end = selectedIdAgendamento.indexOf('}}');
         selectedIdAgendamento = selectedIdAgendamento.substring(start, end);
     }
+
+    let selectedConfirmacaoText = inArguments[0]?.confirmacaoText;
+    if (selectedConfirmacaoText) {
+        let start = selectedConfirmacaoText.indexOf('{{') + 2;
+        let end = selectedConfirmacaoText.indexOf('}}');
+        selectedConfirmacaoText = selectedConfirmacaoText.substring(start, end);
+    }
+
+    let selectedConfirmacaoBoolean = inArguments[0]?.confirmacaoBoolean;
+    if (selectedConfirmacaoBoolean) {
+        let start = selectedConfirmacaoBoolean.indexOf('{{') + 2;
+        let end = selectedConfirmacaoBoolean.indexOf('}}');
+        selectedConfirmacaoBoolean = selectedConfirmacaoBoolean.substring(start, end);
+    }
     console.log('selectedIdAgendamento', selectedIdAgendamento);
 
     data.schema.forEach(element => {
         console.log(element.name, ':', element.key);
         if (element.name) {
             let idAgendamentoSelected = element.key == selectedIdAgendamento ? 'selected' : '';
+            let confirmacaoTextSelected = element.key == selectedConfirmacaoText ? 'selected' : '';
+            let confirmacaoBooleanSelected = element.key == selectedConfirmacaoBoolean ? 'selected' : '';
             console.log('idAgendamentoSelected', idAgendamentoSelected);
             idAgendamentoOptions += `<option value="{{${element.key}}}" ${idAgendamentoSelected}>${element.name}</option>`;
-            confirmacaoTextOptions += `<option value="{{${element.key}}}">${element.name}</option>`;
-            confirmacaoBooleanOptions += `<option value="{{${element.key}}}">${element.name}</option>`;
+            confirmacaoTextOptions += `<option value="{{${element.key}}}" ${confirmacaoTextSelected}>${element.name}</option>`;
+            confirmacaoBooleanOptions += `<option value="{{${element.key}}}" ${confirmacaoBooleanSelected}>${element.name}</option>`;
         }
     });
     idAgendamento.innerHTML = idAgendamentoOptions;
