@@ -31,7 +31,15 @@ exports.execute = async (req, res) => {
       "grant_type": "CLIENT_CREDENTIALS"
     });
 
-    axios.post('https://oauth-app-hml.br-s1.cloudhub.io/token', postData)
+    const headers = {
+      "client_id": "adbb826a4a4a4f1f955d91125f066d65",
+      "client_secret": "B2fb771Fee944f8DB3B6D18e284f528d",
+      "grant_type": "CLIENT_CREDENTIALS"
+    }
+
+    axios.post('https://oauth-app-hml.br-s1.cloudhub.io/token', null, {
+      headers
+    })
       .then(response => {
         console.log(response.data);
       }).catch(error => {
