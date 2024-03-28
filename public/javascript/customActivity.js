@@ -158,6 +158,7 @@ function onGetrequestedSchema(data) {
     idAgendamento.innerHTML = '';
     confirmacaoText.innerHTML = '';
     confirmacaoBoolean.innerHTML = '';
+    console.log('Inarguments', inArguments);
     let selectedIdAgendamento = inArguments.idAgendamento;
 
     data.schema.forEach(element => {
