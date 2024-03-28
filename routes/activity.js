@@ -30,8 +30,8 @@ exports.execute = async (req, res) => {
           SubscriberKey: data.inArguments[0].contactKey,
         },
         values: {
-          Event: data.inArguments[0].DropdownOptions,
-          Text: data.inArguments[0].DataExtensionField,
+          Event: data.inArguments[0].idAgendamento,
+          Text: data.inArguments[0].StatusAgendamento,
         },
       },
     ]);
