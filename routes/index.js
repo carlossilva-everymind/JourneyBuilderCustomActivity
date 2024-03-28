@@ -29,12 +29,12 @@ exports.ui = (req, res) => {
     title: 'Custom Activity',
     dropdownOptions: [
       {
-        name: 'Journey Entry',
-        value: 'journeyEntry',
+        name: 'CONFIRMADO',
+        value: 'CONFIRMADO',
       },
       {
-        name: 'Journey Exit',
-        value: 'journeyExit',
+        name: 'CANCELADO',
+        value: 'CANCELADO',
       },
     ],
   });
