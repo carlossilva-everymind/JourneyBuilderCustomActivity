@@ -160,9 +160,11 @@ function onGetrequestedSchema(data) {
     confirmacaoBoolean.innerHTML = '';
     console.log('InArguments', inArguments);
     let selectedIdAgendamento = inArguments[0]?.idAgendamento;
-    let start = selectedIdAgendamento.indexOf('{{') + 2;
-    let end = selectedIdAgendamento.indexOf('}}');
-    selectedIdAgendamento = selectedIdAgendamento.substring(start, end);
+    if (selectedIdAgendamento) {
+        let start = selectedIdAgendamento.indexOf('{{') + 2;
+        let end = selectedIdAgendamento.indexOf('}}');
+        selectedIdAgendamento = selectedIdAgendamento.substring(start, end);
+    }
     console.log('selectedIdAgendamento', selectedIdAgendamento);
 
     data.schema.forEach(element => {
@@ -170,7 +172,7 @@ function onGetrequestedSchema(data) {
         if (element.name) {
             let idAgendamentoSelected = element.key == selectedIdAgendamento ? 'selected' : '';
             console.log('idAgendamentoSelected', idAgendamentoSelected);
-            idAgendamentoOptions += `<option value="{{${element.key}}}" "${idAgendamentoSelected}">${element.name}</option>`;
+            idAgendamentoOptions += `<option value="{{${element.key}}}" ${idAgendamentoSelected}>${element.name}</option>`;
             confirmacaoTextOptions += `<option value="{{${element.key}}}">${element.name}</option>`;
             confirmacaoBooleanOptions += `<option value="{{${element.key}}}">${element.name}</option>`;
         }
