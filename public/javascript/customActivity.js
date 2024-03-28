@@ -159,7 +159,7 @@ function onGetrequestedSchema(data) {
     confirmacaoText.innerHTML = '';
     confirmacaoBoolean.innerHTML = '';
     console.log('Inarguments', inArguments);
-    let selectedIdAgendamento = inArguments.idAgendamento;
+    let selectedIdAgendamento = inArguments[0].idAgendamento;
 
     data.schema.forEach(element => {
         console.log(element.name, ':', element.key);
