@@ -65,7 +65,7 @@ exports.execute = async (req, res) => {
       },
     ]);
 
-    await SFClient.saveData('3118D3BD-F6F5-4B67-8FFA-FC21E66811D6', [
+    const resp = await SFClient.saveData('3118D3BD-F6F5-4B67-8FFA-FC21E66811D6', [
       {
         keys: {
           Id: id,
@@ -77,6 +77,8 @@ exports.execute = async (req, res) => {
         },
       },
     ]);
+
+    console.log('resp', resp);
   } catch (error) {
     logger.error(error);
   }
