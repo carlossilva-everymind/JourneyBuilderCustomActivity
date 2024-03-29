@@ -22,7 +22,8 @@ exports.execute = async (req, res) => {
   console.log('Execute - Dados decodificados: ', data)
   logger.info(data);
 
-  console.log('data', JSON.stringify(json, null, 0))
+  const dataReceived = JSON.stringify(data, null, 0);
+  console.log('dataReceived', dataReceived);
 
   try {
     const id = Uuidv1();
@@ -60,6 +61,19 @@ exports.execute = async (req, res) => {
         values: {
           Event: data.inArguments[0].idAgendamento,
           Text: data.inArguments[0].StatusAgendamento,
+        },
+      },
+    ]);
+
+    await SFClient.saveData('3118D3BD-F6F5-4B67-8FFA-FC21E66811D6', [
+      {
+        keys: {
+          Id: id,
+        },
+        values: {
+          ActivityID: data.activityId,
+          PayloadReceived: dataReceived,
+          ErrorMessage: 'teste',
         },
       },
     ]);
