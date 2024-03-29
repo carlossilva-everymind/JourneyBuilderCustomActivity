@@ -22,14 +22,10 @@ exports.execute = async (req, res) => {
   console.log('Execute - Dados decodificados: ', data)
   logger.info(data);
 
+  console.log('data', JSON.stringify(json, null, 0))
+
   try {
     const id = Uuidv1();
-
-    const postData = JSON.stringify({
-      "client_id": "adbb826a4a4a4f1f955d91125f066d65",
-      "client_secret": "B2fb771Fee944f8DB3B6D18e284f528d",
-      "grant_type": "CLIENT_CREDENTIALS"
-    });
 
     let authToken;
 
