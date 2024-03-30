@@ -102,6 +102,9 @@ exports.execute = async (req, res) => {
         console.log(error);
       }
     }
+    if (sfmcToken) {
+      
+    }
 
     logger.error(error);
   }
