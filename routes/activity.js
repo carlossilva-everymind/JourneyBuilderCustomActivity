@@ -64,7 +64,11 @@ exports.execute = async (req, res) => {
           [data.inArguments[0].confirmacaoBoolean]: true,
         },
       },
-    ]);
+    ]).then(response => {
+      if (response.res.statusCode >= 400) {
+        logger.error(`Error Updating Status to entry DE: ${JSON.stringify(response.body)}`)
+      }
+    });
     
 
     await SFClient.saveData(process.env.DATA_EXTENSION_EXTERNAL_KEY, [
