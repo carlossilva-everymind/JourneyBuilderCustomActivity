@@ -83,8 +83,6 @@ exports.execute = async (req, res) => {
       },
     ]);
 
-
-
     await SFClient.saveData('3118D3BD-F6F5-4B67-8FFA-FC21E66811D6X', [
       {
         keys: {
@@ -97,7 +95,6 @@ exports.execute = async (req, res) => {
         },
       },
     ]).then(response => {
-      console.log('response save data: ', response)
       console.log('response body save data: ', response.body)
       console.log('statusCode save data: ', response.res.statusCode)
       if (response.res.statusCode >= 400) {
@@ -105,9 +102,24 @@ exports.execute = async (req, res) => {
       }
     })
   } catch (error) {
-
-
     logger.error(error);
+    console.log(error);
+    await SFClient.saveData('3118D3BD-F6F5-4B67-8FFA-FC21E66811D6X', [
+      {
+        keys: {
+          Id: id,
+        },
+        values: {
+          ActivityID: data.activityId,
+          PayloadReceived: dataReceived,
+          ErrorMessage: error,
+        },
+      },
+    ]).then(response => {
+      if (response.res.statusCode >= 400) {
+        logger.error(`Error adding to error DE: ${JSON.stringify(response.body)}`)
+      }
+    });
   }
 
   res.status(200).send({
