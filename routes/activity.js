@@ -95,7 +95,7 @@ exports.execute = async (req, res) => {
       },
     ]).then(response => { 
       console.log('response save data: ', response.body)
-      console.log('status save data: ', response.status)
+      console.log('res save data: ', response.res)
      })
   } catch (error) {
     if (!sfmcToken) {
