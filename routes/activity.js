@@ -101,7 +101,7 @@ exports.execute = async (req, res) => {
       console.log('response body save data: ', response.body)
       console.log('statusCode save data: ', response.res.statusCode)
       if (response.res.statusCode >= 400) {
-        throw `Error adding to DE: ${response.body}`
+        throw `Error adding to DE: ${JSON.stringify(response.body)}`
       }
     })
   } catch (error) {
