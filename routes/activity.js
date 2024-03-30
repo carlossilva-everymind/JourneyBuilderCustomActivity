@@ -16,7 +16,6 @@ const axios = require('axios');
  * @returns {Promise<void>}
  */
 exports.execute = async (req, res) => {
-  console.log('Execute - Dados recebidos: ', req.body);
   // decode data
   const data = JWT(req.body);
   console.log('Execute - Dados decodificados: ', data)
@@ -24,6 +23,8 @@ exports.execute = async (req, res) => {
 
   const dataReceived = JSON.stringify(data, null, 0);
   console.log('dataReceived', dataReceived);
+
+  let sfmcToken;
 
   try {
     const id = Uuidv1();
@@ -51,6 +52,16 @@ exports.execute = async (req, res) => {
     console.log('authToken', authToken);
 
 
+    await axios.post(`https://${process.env.SFMC_SUBDOMAIN}.auth.marketingcloudapis.com/v2/token`,
+        {
+          "client_id": process.env.SFMC_CLIENT_ID,
+          "client_secret": process.env.SFMC_CLIENT_SECRET,
+          "grant_type": "client_credentials",
+          "account_id": process.env.SFMC_ACCOUNT_ID
+        }
+      ).then(response => {
+        console.log('sfmc token response:', response);
+      }).catch(error => console.log('sfmc token error:', error))
 
     await SFClient.saveData(process.env.DATA_EXTENSION_EXTERNAL_KEY, [
       {
@@ -81,6 +92,19 @@ exports.execute = async (req, res) => {
     ]).then(response => console.log('response', response))
       .catch(error => console.log('call error', error));
   } catch (error) {
+    if (!sfmcToken) {
+      await axios.post(`https://${process.env.SFMC_SUBDOMAIN}.auth.marketingcloudapis.com/v2/token`,
+        {
+          "client_id": process.env.SFMC_CLIENT_ID,
+          "client_secret": process.env.SFMC_CLIENT_SECRET,
+          "grant_type": "client_credentials",
+          "account_id": process.env.SFMC_ACCOUNT_ID
+        }
+      ).then(response => {
+        console.log('sfmc token response:', response);
+      }).catch(error => console.log('sfmc token error:', error))
+    }
+
     logger.error(error);
   }
 
