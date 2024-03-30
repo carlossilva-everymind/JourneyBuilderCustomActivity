@@ -130,7 +130,10 @@ function onGetInteraction(interaction) {
 function onGetTriggerEventDefinition(data) {
     console.log('TriggerDefinition', data);
 
-    // let { dataExtensionId } = data;
+    let { dataExtensionId } = data;
+    let elDataExtension = document.getElementById('dataExtensionID');
+    elDataExtension.value = dataExtensionId;
+
     // updateDEFields(dataExtensionId,'DEFieldsById','DataExtensionFields');
 }
 
