@@ -54,6 +54,17 @@ exports.execute = async (req, res) => {
     // chamada para motion confirmação
 
     // atualiza dados na DE
+    await SFClient.saveDataByID(data.inArguments[0].dataExtensionID, [
+      {
+        keys: {
+          codigoAgendamentoMotion: data.inArguments[0].idAgendamento,
+        },
+        values: {
+          [data.inArguments[0].confirmacaoText]: 'CONFIRMADO',
+          [data.inArguments[0].confirmacaoBoolean]: true,
+        },
+      },
+    ]);
     
 
     await SFClient.saveData(process.env.DATA_EXTENSION_EXTERNAL_KEY, [
@@ -90,6 +101,7 @@ exports.execute = async (req, res) => {
   } catch (error) {
     logger.error(error);
     console.log(error);
+    const id = Uuidv1();
     await SFClient.saveData('3118D3BD-F6F5-4B67-8FFA-FC21E66811D6X', [
       {
         keys: {
