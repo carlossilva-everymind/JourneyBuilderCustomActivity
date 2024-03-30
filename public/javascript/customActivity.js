@@ -187,8 +187,8 @@ function onGetrequestedSchema(data) {
             let confirmacaoTextSelected = element.key == selectedConfirmacaoText ? 'selected' : '';
             let confirmacaoBooleanSelected = element.key == selectedConfirmacaoBoolean ? 'selected' : '';
             idAgendamentoOptions += `<option value="{{${element.key}}}" ${idAgendamentoSelected}>${element.name}</option>`;
-            confirmacaoTextOptions += `<option value="{{${element.key}}}" ${confirmacaoTextSelected}>${element.name}</option>`;
-            confirmacaoBooleanOptions += `<option value="{{${element.key}}}" ${confirmacaoBooleanSelected}>${element.name}</option>`;
+            confirmacaoTextOptions += `<option value="${element.name}" ${confirmacaoTextSelected}>${element.name}</option>`;
+            confirmacaoBooleanOptions += `<option value="${element.name}" ${confirmacaoBooleanSelected}>${element.name}</option>`;
         }
     });
     idAgendamento.innerHTML = idAgendamentoOptions;
