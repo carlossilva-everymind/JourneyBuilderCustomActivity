@@ -52,7 +52,7 @@ exports.execute = async (req, res) => {
     console.log('authResponse', authResponse);
     console.log('authToken', authToken);
 
-    sfmcToken = SFMCClient2.getToken();
+    sfmcToken = await SFMCClient2.getToken();
     console.log('sfmcToken', sfmcToken);
 
 
