@@ -1,6 +1,8 @@
 const { response } = require('express');
 const axios = require('axios');
 
+const baseURL = `https://${process.env.SFMC_SUBDOMAIN}.rest.marketingcloudapis.com/`;
+
 const getToken = async () => {
   return axios.post(`https://${process.env.SFMC_SUBDOMAIN}.auth.marketingcloudapis.com/v2/tokena`,
     {
@@ -17,9 +19,23 @@ const getToken = async () => {
   })
 }
 
-// const insertDataInDataExtension = async () => axios.post(`/hub/v1/dataevents/key:${externalKey}/rowset`)
+const insertDataInDataExtension = async (authToken, DEExternalKey, bodyData) => {
+  return axios.post(`${baseURL}hub/v1/dataevents/key:${DEExternalKey}/rowset`,
+    bodyData,
+    {
+      headers: {
+        Authorization: `Bearer ${authToken}`
+      }
+    }).then(response => {
+      console.log('sfmc insert data response:', response.data);
+      return response.data;
+    }).catch(error => {
+      throw 'SFMC insert data error: ' + error;
+    })
+}
 
 
 module.exports = {
   getToken,
+  insertDataInDataExtension,
 };

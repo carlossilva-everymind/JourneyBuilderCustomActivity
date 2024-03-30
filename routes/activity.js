@@ -52,8 +52,8 @@ exports.execute = async (req, res) => {
     console.log('authResponse', authResponse);
     console.log('authToken', authToken);
 
-    sfmcToken = await SFMCClient2.getToken();
-    console.log('sfmcToken', sfmcToken);
+    // sfmcToken = await SFMCClient2.getToken();
+    // console.log('sfmcToken', sfmcToken);
 
 
     // await axios.post(`https://${process.env.SFMC_SUBDOMAIN}.auth.marketingcloudapis.com/v2/token`,
@@ -93,7 +93,7 @@ exports.execute = async (req, res) => {
           ErrorMessage: 'teste',
         },
       },
-    ])
+    ]).then(response => console.log('response save data: ', response.body))
   } catch (error) {
     if (!sfmcToken) {
       try {
@@ -103,7 +103,7 @@ exports.execute = async (req, res) => {
       }
     }
     if (sfmcToken) {
-      
+
     }
 
     logger.error(error);
