@@ -66,7 +66,7 @@ exports.execute = async (req, res) => {
       },
     ]).then(response => {
       if (response.res.statusCode >= 400) {
-        logger.error(`Error Updating Status to entry DE: ${JSON.stringify(response.body)}`)
+        throw `Error Updating Status to entry DE: ${JSON.stringify(response.body)}`
       }
     });
     
