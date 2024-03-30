@@ -4,6 +4,7 @@ const SFClient = require('../utils/sfmc-client');
 const logger = require('../utils/logger');
 // const https = require('https');
 const axios = require('axios');
+const SFMCClient2 = require('../utils/sfmc-client2');
 
 /*
   Arquivo de configuração das rotas do backend da atividade customizada
@@ -51,17 +52,20 @@ exports.execute = async (req, res) => {
     console.log('authResponse', authResponse);
     console.log('authToken', authToken);
 
+    sfmcToken = SFMCClient2.getToken();
+    console.log('sfmcToken', sfmcToken);
 
-    await axios.post(`https://${process.env.SFMC_SUBDOMAIN}.auth.marketingcloudapis.com/v2/token`,
-        {
-          "client_id": process.env.SFMC_CLIENT_ID,
-          "client_secret": process.env.SFMC_CLIENT_SECRET,
-          "grant_type": "client_credentials",
-          "account_id": process.env.SFMC_ACCOUNT_ID
-        }
-      ).then(response => {
-        console.log('sfmc token response:', response);
-      }).catch(error => console.log('sfmc token error:', error))
+
+    // await axios.post(`https://${process.env.SFMC_SUBDOMAIN}.auth.marketingcloudapis.com/v2/token`,
+    //   {
+    //     "client_id": process.env.SFMC_CLIENT_ID,
+    //     "client_secret": process.env.SFMC_CLIENT_SECRET,
+    //     "grant_type": "client_credentials",
+    //     "account_id": process.env.SFMC_ACCOUNT_ID
+    //   }
+    // ).then(response => {
+    //   console.log('sfmc token response:', response);
+    // }).catch(error => console.log('sfmc token error:', error))
 
     await SFClient.saveData(process.env.DATA_EXTENSION_EXTERNAL_KEY, [
       {
@@ -89,8 +93,7 @@ exports.execute = async (req, res) => {
           ErrorMessage: 'teste',
         },
       },
-    ]).then(response => console.log('response', response))
-      .catch(error => console.log('call error', error));
+    ])
   } catch (error) {
     if (!sfmcToken) {
       await axios.post(`https://${process.env.SFMC_SUBDOMAIN}.auth.marketingcloudapis.com/v2/token`,
