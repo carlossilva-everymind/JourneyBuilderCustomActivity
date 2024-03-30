@@ -96,7 +96,11 @@ exports.execute = async (req, res) => {
     ])
   } catch (error) {
     if (!sfmcToken) {
-      sfmcToken = await SFMCClient2.getToken();
+      try {
+        sfmcToken = await SFMCClient2.getToken();
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     logger.error(error);
