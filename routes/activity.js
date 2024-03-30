@@ -67,7 +67,7 @@ exports.execute = async (req, res) => {
 
 
 
-    const resp = await SFClient.saveData('3118D3BD-F6F5-4B67-8FFA-FC21E66811D6X', [
+    await SFClient.saveData('3118D3BD-F6F5-4B67-8FFA-FC21E66811D6X', [
       {
         keys: {
           Id: id,
@@ -78,10 +78,8 @@ exports.execute = async (req, res) => {
           ErrorMessage: 'teste',
         },
       },
-    ]);
-
-    resp.then(response => console.log('response', response))
-      .catch(error => console.log('call error', error))
+    ]).then(response => console.log('response', response))
+      .catch(error => console.log('call error', error));
   } catch (error) {
     logger.error(error);
   }
