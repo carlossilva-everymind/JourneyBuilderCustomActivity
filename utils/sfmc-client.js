@@ -33,7 +33,23 @@ const saveData = async (externalKey, data) => client.post({
   body: data,
 });
 
+/**
+ * Save data in DE
+ * @param externalKey
+ * @param data
+ * @returns {?Promise}
+ */
+const saveDataByID = async (externalID, data) => client.post({
+  uri: `/hub/v1/dataevents/${externalID}/rowset`,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  json: true,
+  body: data,
+});
+
 module.exports = {
   client,
   saveData,
+  saveDataByID,
 };

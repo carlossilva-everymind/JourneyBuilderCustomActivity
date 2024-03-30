@@ -133,8 +133,6 @@ function onGetTriggerEventDefinition(data) {
     let { dataExtensionId } = data;
     let elDataExtension = document.getElementById('dataExtensionID');
     elDataExtension.value = dataExtensionId;
-
-    // updateDEFields(dataExtensionId,'DEFieldsById','DataExtensionFields');
 }
 
 
