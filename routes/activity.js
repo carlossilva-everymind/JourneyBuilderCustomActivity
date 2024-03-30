@@ -52,7 +52,7 @@ exports.execute = async (req, res) => {
     console.log('authToken', authToken);
 
     // chamada para motion confirmação
-    
+
     // atualiza dados na DE
 
     // sfmcToken = await SFMCClient2.getToken();
@@ -96,22 +96,16 @@ exports.execute = async (req, res) => {
           ErrorMessage: 'teste',
         },
       },
-    ]).then(response => { 
+    ]).then(response => {
       console.log('response save data: ', response)
       console.log('response body save data: ', response.body)
       console.log('statusCode save data: ', response.res.statusCode)
-     })
-  } catch (error) {
-    if (!sfmcToken) {
-      try {
-        sfmcToken = await SFMCClient2.getToken();
-      } catch (error) {
-        console.log(error);
+      if (response.res.statusCode >= 400) {
+        throw `Error adding to DE: ${response.body}`
       }
-    }
-    if (sfmcToken) {
+    })
+  } catch (error) {
 
-    }
 
     logger.error(error);
   }
