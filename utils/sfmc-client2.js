@@ -1,7 +1,7 @@
 const { response } = require('express');
 const axios = require('axios');
 
-const getToken = await axios.post(`https://${process.env.SFMC_SUBDOMAIN}.auth.marketingcloudapis.com/v2/token`,
+const getToken = axios.post(`https://${process.env.SFMC_SUBDOMAIN}.auth.marketingcloudapis.com/v2/token`,
   {
     "client_id": process.env.SFMC_CLIENT_ID,
     "client_secret": process.env.SFMC_CLIENT_SECRET,
