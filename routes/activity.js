@@ -32,12 +32,12 @@ exports.execute = async (req, res) => {
 
     let authToken;
 
+    // chamada para token do motion
     const headers = {
       "client_id": "adbb826a4a4a4f1f955d91125f066d65",
       "client_secret": "B2fb771Fee944f8DB3B6D18e284f528d",
       "grant_type": "CLIENT_CREDENTIALS"
     }
-
     let authResponse = await axios.post('https://oauth-app-hml.br-s1.cloudhub.io/token', null, {
       headers
     })
@@ -48,9 +48,12 @@ exports.execute = async (req, res) => {
       }).catch(error => {
         console.error(error);
       });
-
     console.log('authResponse', authResponse);
     console.log('authToken', authToken);
+
+    // chamada para motion confirmação
+    
+    // atualiza dados na DE
 
     // sfmcToken = await SFMCClient2.getToken();
     // console.log('sfmcToken', sfmcToken);
@@ -95,7 +98,7 @@ exports.execute = async (req, res) => {
       },
     ]).then(response => { 
       console.log('response save data: ', response.body)
-      console.log('res save data: ', response.res)
+      console.log('statusCode save data: ', response.statusCode)
      })
   } catch (error) {
     if (!sfmcToken) {
