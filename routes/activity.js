@@ -78,7 +78,7 @@ exports.execute = async (req, res) => {
       },
     ]);
 
-    console.log('resp', resp);
+    console.log('resp.res', resp.res);
   } catch (error) {
     logger.error(error);
   }
