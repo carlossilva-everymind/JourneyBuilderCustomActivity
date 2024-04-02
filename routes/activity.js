@@ -96,7 +96,7 @@ exports.execute = async (req, res) => {
         },
       },
     ]
-    await SFClient.saveData('3118D3BD-F6F5-4B67-8FFA-FC21E66811D6X', errorPostBody).then(response => {
+    await SFClient.saveData('3118D3BD-F6F5-4B67-8FFA-FC21E66811D6', errorPostBody).then(response => {
       if (response.res.statusCode >= 400) {
         logger.error(`Error adding to error DE request body: ${JSON.stringify(errorPostBody)}`)
         logger.error(`Error adding to error DE response: ${JSON.stringify(response.body)}`)
