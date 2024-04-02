@@ -25,6 +25,8 @@ exports.execute = async (req, res) => {
   const dataReceived = JSON.stringify(data, null, 0);
   console.log('dataReceived', dataReceived);
 
+  const { idAgendamento } = data.inArguments[0];
+
   let sfmcToken;
 
   try {
@@ -57,7 +59,7 @@ exports.execute = async (req, res) => {
     }
     console.log('post body motion: ', postBody);
     let responseMotion = await axios('https://proxy-motion-hml.br-s1.cloudhub.io/appointment/' + idAgendamento,
-    postBody
+      postBody
     );
 
     // atualiza dados na DE
@@ -82,7 +84,7 @@ exports.execute = async (req, res) => {
     logger.error(error);
     console.log(error);
     const id = Uuidv1();
-    await SFClient.saveData('3118D3BD-F6F5-4B67-8FFA-FC21E66811D6X', [
+    let errorPostBody = [
       {
         keys: {
           Id: id,
@@ -90,12 +92,14 @@ exports.execute = async (req, res) => {
         values: {
           ActivityID: data.activityId,
           PayloadReceived: dataReceived,
-          ErrorMessage: error,
+          ErrorMessage: JSON.stringify(error),
         },
       },
-    ]).then(response => {
+    ]
+    await SFClient.saveData('3118D3BD-F6F5-4B67-8FFA-FC21E66811D6X', errorPostBody).then(response => {
       if (response.res.statusCode >= 400) {
-        logger.error(`Error adding to error DE: ${JSON.stringify(response.body)}`)
+        logger.error(`Error adding to error DE request body: ${JSON.stringify(response.body)}`)
+        logger.error(`Error adding to error DE response: ${JSON.stringify(response.body)}`)
       }
     });
   }
