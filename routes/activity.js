@@ -72,7 +72,7 @@ exports.execute = async (req, res) => {
           console.error('Response data:', error.response.data);
           console.error('Response status:', error.response.status);
           console.error('Response headers:', error.response.headers);
-          throw `Error at motion call: Response: ${data} - Response Status ${status}`
+          throw `Error at motion call: Response: ${JSON.stringify(data)} - Response Status ${status}`
         } else if (error.request) {
           // The request was made but no response was received
           console.error('Request:', error.request);
