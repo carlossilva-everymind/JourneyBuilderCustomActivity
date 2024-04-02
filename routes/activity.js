@@ -52,6 +52,13 @@ exports.execute = async (req, res) => {
     console.log('authToken', authToken);
 
     // chamada para motion confirmação
+    let postBody = {
+      status: data.inArguments[0].statusAgendamento
+    }
+    console.log('post body motion: ', postBody);
+    let responseMotion = await axios('https://proxy-motion-hml.br-s1.cloudhub.io/appointment/' + idAgendamento,
+    postBody
+    );
 
     // atualiza dados na DE
     await SFClient.saveDataByID(data.inArguments[0].dataExtensionID, [
@@ -71,37 +78,6 @@ exports.execute = async (req, res) => {
     });
 
 
-    // await SFClient.saveData(process.env.DATA_EXTENSION_EXTERNAL_KEY, [
-    //   {
-    //     keys: {
-    //       Id: id,
-    //       SubscriberKey: data.inArguments[0].contactKey,
-    //     },
-    //     values: {
-    //       Event: data.inArguments[0].idAgendamento,
-    //       Text: data.inArguments[0].StatusAgendamento,
-    //     },
-    //   },
-    // ]);
-
-    // await SFClient.saveData('3118D3BD-F6F5-4B67-8FFA-FC21E66811D6X', [
-    //   {
-    //     keys: {
-    //       Id: id,
-    //     },
-    //     values: {
-    //       ActivityID: data.activityId,
-    //       PayloadReceived: dataReceived,
-    //       ErrorMessage: 'teste',
-    //     },
-    //   },
-    // ]).then(response => {
-    //   console.log('response body save data: ', response.body)
-    //   console.log('statusCode save data: ', response.res.statusCode)
-    //   if (response.res.statusCode >= 400) {
-    //     throw `Error adding to DE: ${JSON.stringify(response.body)}`
-    //   }
-    // })
   } catch (error) {
     logger.error(error);
     console.log(error);
