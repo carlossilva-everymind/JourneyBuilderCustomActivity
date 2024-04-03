@@ -41,11 +41,11 @@ exports.execute = async (req, res) => {
 
     // chamada para token do motion
     const headers = {
-      "client_id": "adbb826a4a4a4f1f955d91125f066d65",
-      "client_secret": "B2fb771Fee944f8DB3B6D18e284f528d",
+      "client_id": process.env.MOTION_CLIENT_ID,
+      "client_secret": process.env.MOTION_CLIENT_SECRET,
       "grant_type": "CLIENT_CREDENTIALS"
     }
-    let authResponse = await axios.post('https://oauth-app-hml.br-s1.cloudhub.io/token', null, {
+    let authResponse = await axios.post(process.env.MOTION_TOKEN_URL, null, {
       headers
     })
       .then(response => {
@@ -63,7 +63,7 @@ exports.execute = async (req, res) => {
       status: StatusAgendamento
     }
     console.log('post body motion: ', postBody);
-    let responseMotion = await axios.put('https://proxy-motion-hml.br-s1.cloudhub.io/appointment/' + idAgendamento,
+    let responseMotion = await axios.put(process.env.MOTION_AGENDAMENTO_URL + idAgendamento,
       postBody,
       {
         headers: { Authorization: `Bearer ${authToken}` }
@@ -122,7 +122,7 @@ exports.execute = async (req, res) => {
       },
     ]
     // esse id por ir para variavel de ambiente
-    await SFClient.saveData('3118D3BD-F6F5-4B67-8FFA-FC21E66811D6', errorPostBody).then(response => {
+    await SFClient.saveData(process.env.SFMC_ERROR_DE_EXTERNAL_KEY, errorPostBody).then(response => {
       if (response.res.statusCode >= 400) {
         logger.error(`Error adding to error DE request body: ${JSON.stringify(errorPostBody)}`)
         logger.error(`Error adding to error DE response: ${JSON.stringify(response.body)}`)
