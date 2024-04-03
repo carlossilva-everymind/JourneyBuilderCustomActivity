@@ -59,7 +59,10 @@ exports.execute = async (req, res) => {
     }
     console.log('post body motion: ', postBody);
     let responseMotion = await axios('https://proxy-motion-hml.br-s1.cloudhub.io/appointment/' + idAgendamento,
-      postBody
+      postBody,
+      {
+        headers: { Authorization: `Bearer ${authToken}` }
+      }
     )
       .then(response => {
         console.log('Response:', response.data);
@@ -69,18 +72,13 @@ exports.execute = async (req, res) => {
           // The request was made and the server responded with a status code
           // that falls out of the range of 2xx
           let { data, status, headers } = error.response;
-          console.error('Response data:', error.response.data);
-          console.error('Response status:', error.response.status);
-          console.error('Response headers:', error.response.headers);
           throw `Error at motion call: Response: ${JSON.stringify(data)} - Response Status ${status}`
         } else if (error.request) {
           // The request was made but no response was received
-          console.error('Request:', error.request);
-          throw `Error at motion call: Request: ${error.request}`
+          throw `Error at motion call: Request: ${JSON.stringify(error.request)}`
         } else {
           // Something happened in setting up the request that triggered an Error
-          console.error('Error:', error.message);
-          throw `Error at motion call: ${error.message}`
+          throw `Error at motion call: ${JSON.stringify(error.message)}`
         }
       });
 
