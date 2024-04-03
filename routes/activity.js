@@ -58,7 +58,7 @@ exports.execute = async (req, res) => {
       status: data.inArguments[0].statusAgendamento
     }
     console.log('post body motion: ', postBody);
-    let responseMotion = await axios('https://proxy-motion-hml.br-s1.cloudhub.io/appointment/' + idAgendamento,
+    let responseMotion = await axios.post('https://proxy-motion-hml.br-s1.cloudhub.io/appointment/' + idAgendamento,
       postBody,
       {
         headers: { Authorization: `Bearer ${authToken}` }
