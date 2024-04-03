@@ -25,7 +25,12 @@ exports.execute = async (req, res) => {
   const dataReceived = JSON.stringify(data, null, 0);
   console.log('dataReceived', dataReceived);
 
-  const { idAgendamento } = data.inArguments[0];
+  const {
+    idAgendamento,
+    StatusAgendamento,
+    dataExtensionID,
+    confirmacaoText,
+    confirmacaoBoolean } = data.inArguments[0];
 
   let sfmcToken;
 
@@ -55,7 +60,7 @@ exports.execute = async (req, res) => {
 
     // chamada para motion confirmação
     let postBody = {
-      status: data.inArguments[0].statusAgendamento
+      status: StatusAgendamento
     }
     console.log('post body motion: ', postBody);
     let responseMotion = await axios.put('https://proxy-motion-hml.br-s1.cloudhub.io/appointment/' + idAgendamento,
@@ -72,7 +77,7 @@ exports.execute = async (req, res) => {
           // The request was made and the server responded with a status code
           // that falls out of the range of 2xx
           let { data, status, headers } = error.response;
-          throw `Error at motion call: Response: ${JSON.stringify(data)} - Response Status ${status}`
+          // throw `Error at motion call: Response: ${JSON.stringify(data)} - Response Status ${status}`
         } else if (error.request) {
           // The request was made but no response was received
           throw `Error at motion call: Request: ${JSON.stringify(error.request)}`
@@ -83,14 +88,14 @@ exports.execute = async (req, res) => {
       });
 
     // atualiza dados na DE
-    await SFClient.saveDataByID(data.inArguments[0].dataExtensionID, [
+    await SFClient.saveDataByID(dataExtensionID, [
       {
         keys: {
-          codigoAgendamentoMotion: data.inArguments[0].idAgendamento,
+          codigoAgendamentoMotion: idAgendamento,
         },
         values: {
-          [data.inArguments[0].confirmacaoText]: 'CONFIRMADO',
-          [data.inArguments[0].confirmacaoBoolean]: true,
+          [confirmacaoText]: 'CONFIRMADO', // utilizar a resposta do motion
+          [confirmacaoBoolean]: true, // utilizar resposta do motion
         },
       },
     ]).then(response => {
