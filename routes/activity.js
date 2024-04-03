@@ -94,8 +94,8 @@ exports.execute = async (req, res) => {
           codigoAgendamentoMotion: idAgendamento,
         },
         values: {
-          [confirmacaoText]: 'CONFIRMADO', // utilizar a resposta do motion
-          [confirmacaoBoolean]: true, // utilizar resposta do motion
+          [confirmacaoText]: 'CANCELADO_teste', // utilizar a resposta do motion
+          [confirmacaoBoolean]: false, // utilizar resposta do motion
         },
       },
     ]).then(response => {
