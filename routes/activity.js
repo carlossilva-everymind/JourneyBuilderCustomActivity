@@ -91,11 +91,11 @@ exports.execute = async (req, res) => {
     await SFClient.saveDataByID(dataExtensionID, [
       {
         keys: {
-          codigoAgendamentoMotion: idAgendamento,
+          codigoAgendamentoMotion: idAgendamento, //atulizar campo de acordo com o selecionado do idAgendamento
         },
         values: {
-          [confirmacaoText]: 'CANCELADO_teste', // utilizar a resposta do motion
-          [confirmacaoBoolean]: false, // utilizar resposta do motion
+          [confirmacaoText]: StatusAgendamento,
+          [confirmacaoBoolean]: StatusAgendamento == 'CONFIRMADO' ? true : false,
         },
       },
     ]).then(response => {
