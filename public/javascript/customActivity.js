@@ -196,7 +196,7 @@ function onGetrequestedSchema(data) {
             if (element.isPrimaryKey) {
                 console.log('isPrimaryKey', element)
                 dataExtensionKeyFieldsArray.push(element.name);
-                dataExtensionKeyFieldsValuesArray.push('{{' + element.key) + '}}';
+                dataExtensionKeyFieldsValuesArray.push('{{' + element.key + '}}');
             }
         }
     });
