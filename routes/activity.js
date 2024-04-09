@@ -157,72 +157,73 @@ exports.execute = async (req, res) => {
       status: 'ok',
     });
   };
+}
 
-  /**
-   * Endpoint that receives a notification when a user saves the journey.
-   * @param req
-   * @param res
-   * @returns {Promise<void>}
-   */
-  exports.save = (req, res) => {
-    res.status(200).send({
-      success: true,
-    });
-  };
+/**
+ * Endpoint that receives a notification when a user saves the journey.
+ * @param req
+ * @param res
+ * @returns {Promise<void>}
+ */
+exports.save = (req, res) => {
+  res.status(200).send({
+    success: true,
+  });
+};
 
-  /**
-   *  Endpoint that receives a notification when a user publishes the journey.
-   * @param req
-   * @param res
-   */
-  exports.publish = (req, res) => {
-    res.status(200).send({
-      status: 'ok',
-    });
-  };
+/**
+ *  Endpoint that receives a notification when a user publishes the journey.
+ * @param req
+ * @param res
+ */
+exports.publish = (req, res) => {
+  res.status(200).send({
+    status: 'ok',
+  });
+};
 
-  /**
-   *  Endpoint that receives a notification when a user publishes the journey.
-   * @param req
-   * @param res
-   */
-  exports.unpublish = (req, res) => {
-    res.status(200).send({
-      status: 'ok',
-    });
-  };
+/**
+ *  Endpoint that receives a notification when a user publishes the journey.
+ * @param req
+ * @param res
+ */
+exports.unpublish = (req, res) => {
+  res.status(200).send({
+    status: 'ok',
+  });
+};
 
-  /**
-   * Endpoint that receives a notification when a user performs
-   * some validation as part of the publishing process.
-   * @param req
-   * @param res
-   */
-  exports.validate = async (req, res) => {
-    res.status(200).send({
-      success: true,
-    });
-  };
+/**
+ * Endpoint that receives a notification when a user performs
+ * some validation as part of the publishing process.
+ * @param req
+ * @param res
+ */
+exports.validate = async (req, res) => {
+  res.status(200).send({
+    success: true,
+  });
+};
 
-  /**
-   * Endpoint that receives a notification when a user performs
-   * some validation as part of the publishing process.
-   * @param req
-   * @param res
-   */
-  exports.stop = (req, res) => {
-    res.status(200).send({
-      success: true,
-    });
-  };
-  /**
-   * Endpoint that receives a notification when a user performs
-   * some validation as part of the publishing process.
-   * @param req
-   * @param res
-   */
-  exports.testsave = (req, res) => {
-    res.status(200).send({
-      success: true,
-    });
-  };
+/**
+ * Endpoint that receives a notification when a user performs
+ * some validation as part of the publishing process.
+ * @param req
+ * @param res
+ */
+exports.stop = (req, res) => {
+  res.status(200).send({
+    success: true,
+  });
+};
+/**
+ * Endpoint that receives a notification when a user performs
+ * some validation as part of the publishing process.
+ * @param req
+ * @param res
+ */
+exports.testsave = (req, res) => {
+  res.status(200).send({
+    success: true,
+  });
+};
