@@ -164,6 +164,9 @@ function onGetrequestedSchema(data) {
     confirmacaoBoolean.innerHTML = '';
     status.innerHTML = '';
 
+    let dataExtensionKeyFields = document.getElementById('dataExtensionKeyFields');
+
+
     // Pega valores salvos
     let selectedIdAgendamento = inArguments[0]?.idAgendamento;
     if (selectedIdAgendamento) {
@@ -177,6 +180,7 @@ function onGetrequestedSchema(data) {
 
 
     // Percorre objeto data schema e preenche os dropdowns
+    let dataExtensionKeyFieldsValue = [];
     data.schema.forEach(element => {
         if (element.name) {
             let idAgendamentoSelected = element.key == selectedIdAgendamento ? 'selected' : '';
@@ -187,6 +191,9 @@ function onGetrequestedSchema(data) {
             confirmacaoTextOptions += `<option value="${element.name}" ${confirmacaoTextSelected}>${element.name}</option>`;
             confirmacaoBooleanOptions += `<option value="${element.name}" ${confirmacaoBooleanSelected}>${element.name}</option>`;
             statusOptions += `<option value="${element.name}" ${statusSelected}>${element.name}</option>`;
+            if (element.isPrimaryKey) {
+                console.log('isPrimaryKey', element)
+            }
         }
     });
     idAgendamento.innerHTML = idAgendamentoOptions;
