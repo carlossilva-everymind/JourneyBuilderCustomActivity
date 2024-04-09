@@ -154,12 +154,15 @@ function onGetrequestedSchema(data) {
     let idAgendamento = document.getElementById('idAgendamento');
     let confirmacaoText = document.getElementById('confirmacaoText');
     let confirmacaoBoolean = document.getElementById('confirmacaoBoolean');
+    let status = document.getElementById('status');
     let idAgendamentoOptions = '';
     let confirmacaoTextOptions = '';
     let confirmacaoBooleanOptions = '';
+    let statusOptions = '';
     idAgendamento.innerHTML = '';
     confirmacaoText.innerHTML = '';
     confirmacaoBoolean.innerHTML = '';
+    status.innerHTML = '';
 
     // Pega valores salvos
     let selectedIdAgendamento = inArguments[0]?.idAgendamento;
@@ -169,17 +172,9 @@ function onGetrequestedSchema(data) {
         selectedIdAgendamento = selectedIdAgendamento.substring(start, end);
     }
     let selectedConfirmacaoText = inArguments[0]?.confirmacaoText;
-    // if (selectedConfirmacaoText) {
-    //     let start = selectedConfirmacaoText.indexOf('{{') + 2;
-    //     let end = selectedConfirmacaoText.indexOf('}}');
-    //     selectedConfirmacaoText = selectedConfirmacaoText.substring(start, end);
-    // }
     let selectedConfirmacaoBoolean = inArguments[0]?.confirmacaoBoolean;
-    // if (selectedConfirmacaoBoolean) {
-    //     let start = selectedConfirmacaoBoolean.indexOf('{{') + 2;
-    //     let end = selectedConfirmacaoBoolean.indexOf('}}');
-    //     selectedConfirmacaoBoolean = selectedConfirmacaoBoolean.substring(start, end);
-    // }
+    let selectedStatus = inArguments[0]?.status;
+
 
     // Percorre objeto data schema e preenche os dropdowns
     data.schema.forEach(element => {
@@ -187,14 +182,17 @@ function onGetrequestedSchema(data) {
             let idAgendamentoSelected = element.key == selectedIdAgendamento ? 'selected' : '';
             let confirmacaoTextSelected = element.name == selectedConfirmacaoText ? 'selected' : '';
             let confirmacaoBooleanSelected = element.name == selectedConfirmacaoBoolean ? 'selected' : '';
+            let statusSelected = element.name == selectedStatus ? 'selected' : '';
             idAgendamentoOptions += `<option value="{{${element.key}}}" ${idAgendamentoSelected}>${element.name}</option>`;
             confirmacaoTextOptions += `<option value="${element.name}" ${confirmacaoTextSelected}>${element.name}</option>`;
             confirmacaoBooleanOptions += `<option value="${element.name}" ${confirmacaoBooleanSelected}>${element.name}</option>`;
+            statusOptions += `<option value="${element.name}" ${statusSelected}>${element.name}</option>`;
         }
     });
     idAgendamento.innerHTML = idAgendamentoOptions;
     confirmacaoText.innerHTML = confirmacaoTextOptions;
     confirmacaoBoolean.innerHTML = confirmacaoBooleanOptions;
+    status.innerHTML = statusOptions;
 }
 
 /**
