@@ -4,7 +4,6 @@ const SFClient = require('../utils/sfmc-client');
 const logger = require('../utils/logger');
 // const https = require('https');
 const axios = require('axios');
-const SFMCClient2 = require('../utils/sfmc-client2');
 
 /*
   Arquivo de configuração das rotas do backend da atividade customizada
@@ -30,7 +29,10 @@ exports.execute = async (req, res) => {
     StatusAgendamento,
     dataExtensionID,
     confirmacaoText,
-    confirmacaoBoolean } = data.inArguments[0];
+    confirmacaoBoolean,
+    status,
+    dataExtensionKeyFields,
+    dataExtensionKeyFieldsValues } = data.inArguments[0];
 
   let sfmcToken;
 
@@ -96,6 +98,7 @@ exports.execute = async (req, res) => {
         values: {
           [confirmacaoText]: StatusAgendamento,
           [confirmacaoBoolean]: StatusAgendamento == 'CONFIRMADO' ? true : false,
+          [status]: 'SUCESSO'
         },
       },
     ]).then(response => {
@@ -103,11 +106,30 @@ exports.execute = async (req, res) => {
         throw `Error Updating Status to entry DE: ${JSON.stringify(response.body)}`
       }
     });
-
-
   } catch (error) {
     logger.error(error);
     console.log('Error: ', error);
+
+    // atualiza dados na DE
+    await SFClient.saveDataByID(dataExtensionID, [
+      {
+        keys: {
+          codigoAgendamentoMotion: idAgendamento, //atulizar campo de acordo com o selecionado do idAgendamento
+        },
+        values: {
+          [confirmacaoText]: StatusAgendamento,
+          [confirmacaoBoolean]: StatusAgendamento == 'CONFIRMADO' ? true : false,
+          [status]: 'ERRO'
+        },
+      },
+    ]).then(response => {
+      if (response.res.statusCode >= 400) {
+        logger.error(`Error Updating Status to entry DE: ${JSON.stringify(response.body)}`);
+        // throw `Error Updating Status to entry DE: ${JSON.stringify(response.body)}`
+      }
+    });
+
+    /*
     const id = Uuidv1();
     let errorPostBody = [
       {
@@ -129,77 +151,78 @@ exports.execute = async (req, res) => {
       }
     });
   }
+  */
 
-  res.status(200).send({
-    status: 'ok',
-  });
-};
+    res.status(200).send({
+      status: 'ok',
+    });
+  };
 
-/**
- * Endpoint that receives a notification when a user saves the journey.
- * @param req
- * @param res
- * @returns {Promise<void>}
- */
-exports.save = (req, res) => {
-  res.status(200).send({
-    success: true,
-  });
-};
+  /**
+   * Endpoint that receives a notification when a user saves the journey.
+   * @param req
+   * @param res
+   * @returns {Promise<void>}
+   */
+  exports.save = (req, res) => {
+    res.status(200).send({
+      success: true,
+    });
+  };
 
-/**
- *  Endpoint that receives a notification when a user publishes the journey.
- * @param req
- * @param res
- */
-exports.publish = (req, res) => {
-  res.status(200).send({
-    status: 'ok',
-  });
-};
+  /**
+   *  Endpoint that receives a notification when a user publishes the journey.
+   * @param req
+   * @param res
+   */
+  exports.publish = (req, res) => {
+    res.status(200).send({
+      status: 'ok',
+    });
+  };
 
-/**
- *  Endpoint that receives a notification when a user publishes the journey.
- * @param req
- * @param res
- */
-exports.unpublish = (req, res) => {
-  res.status(200).send({
-    status: 'ok',
-  });
-};
+  /**
+   *  Endpoint that receives a notification when a user publishes the journey.
+   * @param req
+   * @param res
+   */
+  exports.unpublish = (req, res) => {
+    res.status(200).send({
+      status: 'ok',
+    });
+  };
 
-/**
- * Endpoint that receives a notification when a user performs
- * some validation as part of the publishing process.
- * @param req
- * @param res
- */
-exports.validate = async (req, res) => {
-  res.status(200).send({
-    success: true,
-  });
-};
+  /**
+   * Endpoint that receives a notification when a user performs
+   * some validation as part of the publishing process.
+   * @param req
+   * @param res
+   */
+  exports.validate = async (req, res) => {
+    res.status(200).send({
+      success: true,
+    });
+  };
 
-/**
- * Endpoint that receives a notification when a user performs
- * some validation as part of the publishing process.
- * @param req
- * @param res
- */
-exports.stop = (req, res) => {
-  res.status(200).send({
-    success: true,
-  });
-};
-/**
- * Endpoint that receives a notification when a user performs
- * some validation as part of the publishing process.
- * @param req
- * @param res
- */
-exports.testsave = (req, res) => {
-  res.status(200).send({
-    success: true,
-  });
-};
+  /**
+   * Endpoint that receives a notification when a user performs
+   * some validation as part of the publishing process.
+   * @param req
+   * @param res
+   */
+  exports.stop = (req, res) => {
+    res.status(200).send({
+      success: true,
+    });
+  };
+  /**
+   * Endpoint that receives a notification when a user performs
+   * some validation as part of the publishing process.
+   * @param req
+   * @param res
+   */
+  exports.testsave = (req, res) => {
+    res.status(200).send({
+      success: true,
+    });
+  };
