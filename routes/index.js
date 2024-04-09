@@ -26,7 +26,7 @@ exports.config = (req, res) => {
  */
 exports.ui = (req, res) => {
   res.render('index', {
-    title: 'Custom Activity',
+    title: 'Confirmação de Agendamento no Motion',
     dropdownOptions: [
       {
         name: 'CONFIRMADO',

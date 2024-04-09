@@ -22,19 +22,19 @@ block content
               select#StatusAgendamento.slds-select.js-activity-setting(name='StatusAgendamento')
                 each dropdownOption in dropdownOptions
                   option(value=dropdownOption.value)= dropdownOption.name
-          label.slds-form-element__label(for="idAgendamento") Campo Id Agendamento
+          label.slds-form-element__label(for="idAgendamento") Campo com Id do Agendamento
           .slds-form-element__control
             .slds-select_container
               select#idAgendamento.slds-select.js-activity-setting(name='idAgendamento')
-          label.slds-form-element__label(for="confirmacaoText") Campo Confrimação Texto
+          label.slds-form-element__label(for="confirmacaoText") Campo para atualizar a confirmação (texto)
           .slds-form-element__control
             .slds-select_container
               select#confirmacaoText.slds-select.js-activity-setting(name='confirmacaoText')
-          label.slds-form-element__label(for="confirmacaoBoolean") Campo Confrimação Boolean
+          label.slds-form-element__label(for="confirmacaoBoolean") Campo para atualizar a confirmação (Boolean)
           .slds-form-element__control
             .slds-select_container
               select#confirmacaoBoolean.slds-select.js-activity-setting(name='confirmacaoBoolean')
-          label.slds-form-element__label(for="status") Campo Para Salvar Status
+          label.slds-form-element__label(for="status") Campo para salvar status
           .slds-form-element__control
             .slds-select_container
               select#status.slds-select.js-activity-setting(name='status')
