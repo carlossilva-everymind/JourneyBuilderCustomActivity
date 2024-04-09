@@ -193,6 +193,7 @@ function onGetrequestedSchema(data) {
             statusOptions += `<option value="${element.name}" ${statusSelected}>${element.name}</option>`;
             if (element.isPrimaryKey) {
                 console.log('isPrimaryKey', element)
+                dataExtensionKeyFieldsValue.push(element.name);
             }
         }
     });
@@ -200,6 +201,7 @@ function onGetrequestedSchema(data) {
     confirmacaoText.innerHTML = confirmacaoTextOptions;
     confirmacaoBoolean.innerHTML = confirmacaoBooleanOptions;
     status.innerHTML = statusOptions;
+    dataExtensionKeyFields.value = dataExtensionKeyFieldsValue;
 }
 
 /**
