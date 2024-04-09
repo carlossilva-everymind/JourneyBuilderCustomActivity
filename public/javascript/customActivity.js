@@ -165,6 +165,7 @@ function onGetrequestedSchema(data) {
     status.innerHTML = '';
 
     let dataExtensionKeyFields = document.getElementById('dataExtensionKeyFields');
+    let dataExtensionKeyFieldsValues = document.getElementById('dataExtensionKeyFieldsValues');
 
 
     // Pega valores salvos
@@ -180,7 +181,8 @@ function onGetrequestedSchema(data) {
 
 
     // Percorre objeto data schema e preenche os dropdowns
-    let dataExtensionKeyFieldsValue = [];
+    let dataExtensionKeyFieldsArray = [];
+    let dataExtensionKeyFieldsValuesArray = [];
     data.schema.forEach(element => {
         if (element.name) {
             let idAgendamentoSelected = element.key == selectedIdAgendamento ? 'selected' : '';
@@ -193,7 +195,8 @@ function onGetrequestedSchema(data) {
             statusOptions += `<option value="${element.name}" ${statusSelected}>${element.name}</option>`;
             if (element.isPrimaryKey) {
                 console.log('isPrimaryKey', element)
-                dataExtensionKeyFieldsValue.push(element.name);
+                dataExtensionKeyFieldsArray.push(element.name);
+                dataExtensionKeyFieldsValuesArray.push('{{' + element.key) + '}}';
             }
         }
     });
@@ -201,7 +204,8 @@ function onGetrequestedSchema(data) {
     confirmacaoText.innerHTML = confirmacaoTextOptions;
     confirmacaoBoolean.innerHTML = confirmacaoBooleanOptions;
     status.innerHTML = statusOptions;
-    dataExtensionKeyFields.value = dataExtensionKeyFieldsValue;
+    dataExtensionKeyFields.value = dataExtensionKeyFieldsArray.join(';');
+    dataExtensionKeyFieldsValues.value = dataExtensionKeyFieldsValuesArray.join(';');
 }
 
 /**
