@@ -39,6 +39,12 @@ exports.execute = async (req, res) => {
   try {
     const id = Uuidv1();
 
+    const arrDataExtensionKeyFields = dataExtensionKeyFields.split(';');
+    const arrDataExtensionKeyFieldsValues = dataExtensionKeyFieldsValues.split(';');
+
+    console.log('arrDataExtensionKeyFields', arrDataExtensionKeyFields);
+    console.log('arrDataExtensionKeyFieldsValues', arrDataExtensionKeyFieldsValues);
+
     let authToken;
 
     // chamada para token do motion
