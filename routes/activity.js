@@ -97,7 +97,7 @@ exports.execute = async (req, res) => {
 
     let keys = {};
     for (let i = 0; i < arrDataExtensionKeyFields.length; i++) {
-      keys[arrDataExtensionKeyFields] = arrDataExtensionKeyFieldsValues
+      keys[arrDataExtensionKeyFields[i]] = arrDataExtensionKeyFieldsValues[i]
     }
     console.log('keys', keys);
 
