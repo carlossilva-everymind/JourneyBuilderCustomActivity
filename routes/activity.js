@@ -96,7 +96,7 @@ exports.execute = async (req, res) => {
       });
 
     let bodyAtualizaDE = {};
-    for (let i = 0; i++; i < arrDataExtensionKeyFields.length) {
+    for (let i = 0; i < arrDataExtensionKeyFields.length; i++) {
       bodyAtualizaDE.keys[arrDataExtensionKeyFields] = arrDataExtensionKeyFieldsValues
     }
     console.log('bodyAtualizaDE', bodyAtualizaDE);
