@@ -85,7 +85,7 @@ exports.execute = async (req, res) => {
           // The request was made and the server responded with a status code
           // that falls out of the range of 2xx
           let { data, status, headers } = error.response;
-          throw `Error at motion call: Response: ${JSON.stringify(data)} - Response Status ${status}`
+          // throw `Error at motion call: Response: ${JSON.stringify(data)} - Response Status ${status}`
         } else if (error.request) {
           // The request was made but no response was received
           throw `Error at motion call: Request: ${JSON.stringify(error.request)}`
