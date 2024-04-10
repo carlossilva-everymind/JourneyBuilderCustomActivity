@@ -95,11 +95,11 @@ exports.execute = async (req, res) => {
         }
       });
 
-    let bodyAtualizaDE = {};
+    let keys = {};
     for (let i = 0; i < arrDataExtensionKeyFields.length; i++) {
-      bodyAtualizaDE.keys[arrDataExtensionKeyFields] = arrDataExtensionKeyFieldsValues
+      keys[arrDataExtensionKeyFields] = arrDataExtensionKeyFieldsValues
     }
-    console.log('bodyAtualizaDE', bodyAtualizaDE);
+    console.log('keys', keys);
 
     // atualiza dados na DE
     await SFClient.saveDataByID(dataExtensionID, [
