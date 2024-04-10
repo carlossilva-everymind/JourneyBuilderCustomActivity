@@ -36,14 +36,16 @@ exports.execute = async (req, res) => {
 
   let sfmcToken;
 
+  const arrDataExtensionKeyFields = dataExtensionKeyFields.split(';');
+  const arrDataExtensionKeyFieldsValues = dataExtensionKeyFieldsValues.split(';');
+  let DEkeys = {};
+  for (let i = 0; i < arrDataExtensionKeyFields.length; i++) {
+    DEkeys[arrDataExtensionKeyFields[i]] = arrDataExtensionKeyFieldsValues[i]
+  }
+  console.log('DEkeys', DEkeys);
+
   try {
     const id = Uuidv1();
-
-    const arrDataExtensionKeyFields = dataExtensionKeyFields.split(';');
-    const arrDataExtensionKeyFieldsValues = dataExtensionKeyFieldsValues.split(';');
-
-    console.log('arrDataExtensionKeyFields', arrDataExtensionKeyFields);
-    console.log('arrDataExtensionKeyFieldsValues', arrDataExtensionKeyFieldsValues);
 
     let authToken;
 
@@ -95,18 +97,10 @@ exports.execute = async (req, res) => {
         }
       });
 
-    let keys = {};
-    for (let i = 0; i < arrDataExtensionKeyFields.length; i++) {
-      keys[arrDataExtensionKeyFields[i]] = arrDataExtensionKeyFieldsValues[i]
-    }
-    console.log('keys', keys);
-
     // atualiza dados na DE
     await SFClient.saveDataByID(dataExtensionID, [
       {
-        keys: {
-          codigoAgendamentoMotion: idAgendamento, //atulizar campo de acordo com o selecionado do idAgendamento
-        },
+        keys: DEkeys,
         values: {
           [confirmacaoText]: StatusAgendamento,
           [confirmacaoBoolean]: StatusAgendamento == 'CONFIRMADO' ? true : false,
@@ -125,9 +119,7 @@ exports.execute = async (req, res) => {
     // atualiza dados na DE
     await SFClient.saveDataByID(dataExtensionID, [
       {
-        keys: {
-          codigoAgendamentoMotion: idAgendamento, //atulizar campo de acordo com o selecionado do idAgendamento
-        },
+        keys: DEkeys,
         values: {
           [confirmacaoText]: StatusAgendamento,
           [confirmacaoBoolean]: StatusAgendamento == 'CONFIRMADO' ? true : false,
