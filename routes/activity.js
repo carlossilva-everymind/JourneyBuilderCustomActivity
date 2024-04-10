@@ -59,20 +59,16 @@ exports.execute = async (req, res) => {
       headers
     })
       .then(response => {
-        console.log(response.data);
         authToken = response.data.access_token;
         return response.data;
       }).catch(error => {
         console.error(error);
       });
-    console.log('authResponse', authResponse);
-    console.log('authToken', authToken);
 
     // chamada para motion confirmação
     let postBody = {
       status: StatusAgendamento
     }
-    console.log('post body motion: ', postBody);
     let responseMotion = await axios.put(process.env.MOTION_AGENDAMENTO_URL + idAgendamento,
       postBody,
       {
@@ -87,7 +83,7 @@ exports.execute = async (req, res) => {
           // The request was made and the server responded with a status code
           // that falls out of the range of 2xx
           let { data, status, headers } = error.response;
-          // throw `Error at motion call: Response: ${JSON.stringify(data)} - Response Status ${status}`
+          throw `Error at motion call: Response: ${JSON.stringify(data)} - Response Status ${status}`
         } else if (error.request) {
           // The request was made but no response was received
           throw `Error at motion call: Request: ${JSON.stringify(error.request)}`
