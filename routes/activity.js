@@ -47,7 +47,6 @@ exports.execute = async (req, res) => {
 
   const timeZone = 'America/Sao_Paulo'; // Specify the desired time zone
   const now = moment().tz(timeZone);
-
   console.log(now.format('YYYY-MM-DD HH:mm:ss')); // Output the formatted date and time
 
   try {
@@ -106,7 +105,8 @@ exports.execute = async (req, res) => {
         values: {
           [confirmacaoText]: StatusAgendamento,
           [confirmacaoBoolean]: StatusAgendamento == 'CONFIRMADO' ? true : false,
-          [status]: 'SUCESSO'
+          [status]: 'SUCESSO',
+          [saveDate]: now.format('YYYY-MM-DD HH:mm:ss')
         },
       },
     ]).then(response => {
