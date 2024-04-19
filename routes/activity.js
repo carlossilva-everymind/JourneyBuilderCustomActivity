@@ -2,8 +2,8 @@ const { v1: Uuidv1 } = require('uuid');
 const JWT = require('../utils/jwtDecoder');
 const SFClient = require('../utils/sfmc-client');
 const logger = require('../utils/logger');
-// const https = require('https');
 const axios = require('axios');
+const moment = require('moment-timezone');
 
 /*
   Arquivo de configuração das rotas do backend da atividade customizada
@@ -31,6 +31,7 @@ exports.execute = async (req, res) => {
     confirmacaoText,
     confirmacaoBoolean,
     status,
+    saveDate,
     dataExtensionKeyFields,
     dataExtensionKeyFieldsValues } = data.inArguments[0];
 
@@ -43,6 +44,11 @@ exports.execute = async (req, res) => {
     DEkeys[arrDataExtensionKeyFields[i]] = arrDataExtensionKeyFieldsValues[i]
   }
   console.log('DEkeys', DEkeys);
+
+  const timeZone = 'America/Sao_Paulo'; // Specify the desired time zone
+  const now = moment().tz(timeZone);
+
+  console.log(now.format('YYYY-MM-DD HH:mm:ss')); // Output the formatted date and time
 
   try {
     const id = Uuidv1();
@@ -143,7 +149,6 @@ exports.execute = async (req, res) => {
         },
       },
     ]
-    // esse id por ir para variavel de ambiente
     await SFClient.saveData(process.env.SFMC_ERROR_DE_EXTERNAL_KEY, errorPostBody).then(response => {
       if (response.res.statusCode >= 400) {
         logger.error(`Error adding to error DE request body: ${JSON.stringify(errorPostBody)}`)
