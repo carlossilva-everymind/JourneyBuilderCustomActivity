@@ -155,14 +155,17 @@ function onGetrequestedSchema(data) {
     let confirmacaoText = document.getElementById('confirmacaoText');
     let confirmacaoBoolean = document.getElementById('confirmacaoBoolean');
     let status = document.getElementById('status');
+    let saveDate = document.getElementById('saveDate');
     let idAgendamentoOptions = '';
     let confirmacaoTextOptions = '';
     let confirmacaoBooleanOptions = '';
     let statusOptions = '';
+    let saveDateOptions = '';
     idAgendamento.innerHTML = '';
     confirmacaoText.innerHTML = '';
     confirmacaoBoolean.innerHTML = '';
     status.innerHTML = '';
+    saveDate.innerHTML = '';
 
     let dataExtensionKeyFields = document.getElementById('dataExtensionKeyFields');
     let dataExtensionKeyFieldsValues = document.getElementById('dataExtensionKeyFieldsValues');
@@ -178,6 +181,7 @@ function onGetrequestedSchema(data) {
     let selectedConfirmacaoText = inArguments[0]?.confirmacaoText;
     let selectedConfirmacaoBoolean = inArguments[0]?.confirmacaoBoolean;
     let selectedStatus = inArguments[0]?.status;
+    let selectedSaveDate = inArguments[0]?.saveDate;
 
 
     // Percorre objeto data schema e preenche os dropdowns
@@ -189,10 +193,12 @@ function onGetrequestedSchema(data) {
             let confirmacaoTextSelected = element.name == selectedConfirmacaoText ? 'selected' : '';
             let confirmacaoBooleanSelected = element.name == selectedConfirmacaoBoolean ? 'selected' : '';
             let statusSelected = element.name == selectedStatus ? 'selected' : '';
+            let saveDateSelected = element.name == selectedSaveDate ? 'selected' : '';
             idAgendamentoOptions += `<option value="{{${element.key}}}" ${idAgendamentoSelected}>${element.name}</option>`;
             confirmacaoTextOptions += `<option value="${element.name}" ${confirmacaoTextSelected}>${element.name}</option>`;
             confirmacaoBooleanOptions += `<option value="${element.name}" ${confirmacaoBooleanSelected}>${element.name}</option>`;
             statusOptions += `<option value="${element.name}" ${statusSelected}>${element.name}</option>`;
+            saveDateOptions += `<option value="${element.name}" ${saveDateSelected}>${element.name}</option>`;
             if (element.isPrimaryKey) {
                 console.log('isPrimaryKey', element)
                 dataExtensionKeyFieldsArray.push(element.name);
@@ -204,6 +210,7 @@ function onGetrequestedSchema(data) {
     confirmacaoText.innerHTML = confirmacaoTextOptions;
     confirmacaoBoolean.innerHTML = confirmacaoBooleanOptions;
     status.innerHTML = statusOptions;
+    saveDate.innerHTML = saveDateOptions;
     dataExtensionKeyFields.value = dataExtensionKeyFieldsArray.join(';');
     dataExtensionKeyFieldsValues.value = dataExtensionKeyFieldsValuesArray.join(';');
 }
