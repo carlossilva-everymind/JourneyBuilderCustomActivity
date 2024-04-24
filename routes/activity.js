@@ -104,7 +104,7 @@ exports.execute = async (req, res) => {
         keys: DEkeys,
         values: {
           [confirmacaoText]: StatusAgendamento,
-          [confirmacaoBoolean]: StatusAgendamento == 'CONFIRMADO' ? true : false,
+          [confirmacaoBoolean]: true,
           [status]: 'SUCESSO',
           [saveDate]: now.format('YYYY-MM-DD HH:mm:ss')
         },

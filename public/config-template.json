@@ -1,6 +1,6 @@
 {
   "workflowApiVersion": "1.1",
-  "key":"13708c14-9795-4f96-8a6c-61546af9fbd2",
+  "key": "13708c14-9795-4f96-8a6c-61546af9fbd2",
   "metaData": {
     "icon": "images/icon.png"
   },
@@ -18,7 +18,8 @@
       "header": "",
       "format": "json",
       "useJwt": true,
-      "timeout": 10000
+      "timeout": 10000,
+      "retryCount": 1
     }
   },
   "configurationArguments": {
