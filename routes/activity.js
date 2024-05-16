@@ -19,6 +19,7 @@ exports.execute = async (req, res) => {
   // decode data
   const rawBody = req.body;
   console.log('rawBody: ', rawBody);
+  console.log('type of rawBody: ', typeof rawBody);
   const data = JWT(req.body);
   console.log('Execute - Dados decodificados: ', data)
   logger.info(data);
