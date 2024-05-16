@@ -25,6 +25,7 @@ exports.config = (req, res) => {
  * @param res
  */
 exports.ui = (req, res) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
   res.render('index', {
     title: 'Confirmação de Agendamento no Motion',
     dropdownOptions: [
