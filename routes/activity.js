@@ -3,7 +3,7 @@ const JWT = require('../utils/jwtDecoder');
 const SFClient = require('../utils/sfmc-client');
 const logger = require('../utils/logger');
 const axios = require('axios');
-const moment = require('moment-timezone');
+const moment = require('moment-timezone'); 
 
 /*
   Arquivo de configuração das rotas do backend da atividade customizada
