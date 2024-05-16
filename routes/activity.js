@@ -17,7 +17,7 @@ const moment = require('moment-timezone');
  */
 exports.execute = async (req, res) => {
   // decode data
-  const rawBody = JWT(req.body);
+  const rawBody = req.body;
   console.log('rawBody: ', rawBody);
   const data = JWT(req.body);
   console.log('Execute - Dados decodificados: ', data)
