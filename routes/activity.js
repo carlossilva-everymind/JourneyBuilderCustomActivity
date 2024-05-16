@@ -17,6 +17,8 @@ const moment = require('moment-timezone');
  */
 exports.execute = async (req, res) => {
   // decode data
+  const rawBody = JWT(req.body);
+  console.log('rawBody: ', rawBody);
   const data = JWT(req.body);
   console.log('Execute - Dados decodificados: ', data)
   logger.info(data);
@@ -114,6 +116,9 @@ exports.execute = async (req, res) => {
         throw `Error Updating Status to entry DE: ${JSON.stringify(response.body)}`
       }
     });
+    res.status(200).send({
+      status: 'ok',
+    });
   } catch (error) {
     logger.error(error);
     console.log('Error: ', error);
@@ -158,7 +163,7 @@ exports.execute = async (req, res) => {
   }
   */
 
-    res.status(200).send({
+    res.status(500).send({
       status: 'ok',
     });
   };
